@@ -11,8 +11,8 @@ public class Afiliado extends Persona {
       super(nombre, apellido, edad, sexo, dni, domicilio);
       this.numAfiliado = numAf;
     }
-    ArrayList<RegistroSolicitud> regsol = new ArrayList<RegistroSolicitud>();
-    ArrayList<Familia> flia = new ArrayList<Familia>();
+    public ArrayList<RegistroSolicitud> regsol = new ArrayList<RegistroSolicitud>();
+    public ArrayList<Familia> flia = new ArrayList<Familia>();
     
     public void hacerSolicitud(){
     }

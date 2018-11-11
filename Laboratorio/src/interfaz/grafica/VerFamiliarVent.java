@@ -5,6 +5,7 @@
  */
 package interfaz.grafica;
 
+import laboratorio.Afiliado;
 import laboratorio.Empresa;
 
 /**
@@ -17,11 +18,20 @@ public class VerFamiliarVent extends javax.swing.JInternalFrame {
     /**
      * Creates new form VerFamiliarVent
      */
-    public VerFamiliarVent(Empresa emp) {
-        this.emp = emp;
+    public VerFamiliarVent(Empresa empr, String numAfil) {
+        this.emp = empr;
         initComponents();
+        armarList(numAfil);
     }
 
+    public void armarList(String numAfil){
+        labelNumAfil.setText(numAfil);
+        int numAf = Integer.parseInt(numAfil);
+        Afiliado afi = emp.buscarAf(numAf);
+        for(int i = 0; i < afi.flia.size(); i++){
+            listFlia.add(afi.flia.get(i).getNombre());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,44 +41,125 @@ public class VerFamiliarVent extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        labelNumAfil = new javax.swing.JLabel();
+        labelFlia = new javax.swing.JLabel();
+        listFlia = new java.awt.List();
+        labelDatos = new javax.swing.JLabel();
+        buttonEliminar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        textPane = new javax.swing.JTextPane();
 
         setClosable(true);
 
-        jButton1.setText("jButton1");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setText("Nº Afiliado:");
 
-        jButton2.setText("jButton2");
+        labelFlia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelFlia.setText("Familiares:");
+
+        listFlia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listFliaActionPerformed(evt);
+            }
+        });
+
+        labelDatos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelDatos.setText("Datos:");
+
+        buttonEliminar.setText("Eliminar");
+        buttonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEliminarActionPerformed(evt);
+            }
+        });
+
+        jScrollPane2.setViewportView(textPane);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(284, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(37, 37, 37))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelNumAfil, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelFlia))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(listFlia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(labelDatos))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonEliminar)))
+                        .addGap(0, 104, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton2)
-                .addGap(78, 78, 78)
-                .addComponent(jButton1)
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(labelNumAfil, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelFlia)
+                    .addComponent(labelDatos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonEliminar))
+                    .addComponent(listFlia, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void buttonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminarActionPerformed
+        int numAf = Integer.parseInt(labelNumAfil.getText());
+        Afiliado afi = emp.buscarAf(numAf);
+        if(emp.eliminarFlia(numAf, afi.flia.get(listFlia.getSelectedIndex()).getDni())){
+            System.out.println("Familiar Eliminado con Exito!!");
+            textPane.setText("");
+            listFlia.clear();
+            armarList(labelNumAfil.getText());
+        }else{
+            System.out.println("Error");
+        }
+    }//GEN-LAST:event_buttonEliminarActionPerformed
+
+    private void listFliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listFliaActionPerformed
+        int numAf = Integer.parseInt(labelNumAfil.getText());
+        Afiliado afi = emp.buscarAf(numAf);
+        String edad = String.valueOf(afi.flia.get(listFlia.getSelectedIndex()).getEdad());
+        textPane.setText("Nombre: " + afi.flia.get(listFlia.getSelectedIndex()).getNombre() + "\nApellido: " + afi.flia.get(listFlia.getSelectedIndex()).getApellido() + "\nNº Documento: " + afi.flia.get(listFlia.getSelectedIndex()).getDni() + "\nEdad: " + edad + "\nSexo: " + afi.flia.get(listFlia.getSelectedIndex()).getSexo() + "\nDomicilio: " + afi.flia.get(listFlia.getSelectedIndex()).getDomicilio());
+    }//GEN-LAST:event_listFliaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton buttonEliminar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel labelDatos;
+    private javax.swing.JLabel labelFlia;
+    private javax.swing.JLabel labelNumAfil;
+    private java.awt.List listFlia;
+    private javax.swing.JTextPane textPane;
     // End of variables declaration//GEN-END:variables
 }

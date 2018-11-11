@@ -36,14 +36,10 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         menuAfiliado = new javax.swing.JMenu();
         menuItemAddAfil = new javax.swing.JMenuItem();
-        menuItemAddFlia = new javax.swing.JMenuItem();
         menuItemVerAfil = new javax.swing.JMenuItem();
-        menuItemEliminarAfil = new javax.swing.JMenuItem();
         menuEmpleados = new javax.swing.JMenu();
-        menuItemAdms = new javax.swing.JMenuItem();
-        menuItemEnf = new javax.swing.JMenuItem();
-        menuItemDoc = new javax.swing.JMenuItem();
-        menuItemChof = new javax.swing.JMenuItem();
+        menuItemAdd = new javax.swing.JMenuItem();
+        menuItemVer = new javax.swing.JMenuItem();
         menuMovil = new javax.swing.JMenu();
         menuItemAdm2 = new javax.swing.JMenuItem();
 
@@ -55,11 +51,11 @@ public class Principal extends javax.swing.JFrame {
         desktopPane.setLayout(desktopPaneLayout);
         desktopPaneLayout.setHorizontalGroup(
             desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+            .addGap(0, 548, Short.MAX_VALUE)
         );
         desktopPaneLayout.setVerticalGroup(
             desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 386, Short.MAX_VALUE)
+            .addGap(0, 443, Short.MAX_VALUE)
         );
 
         menuAfiliado.setText("Afiliado");
@@ -72,14 +68,6 @@ public class Principal extends javax.swing.JFrame {
         });
         menuAfiliado.add(menuItemAddAfil);
 
-        menuItemAddFlia.setText("Agregar Familiar");
-        menuItemAddFlia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemAddFliaActionPerformed(evt);
-            }
-        });
-        menuAfiliado.add(menuItemAddFlia);
-
         menuItemVerAfil.setText("Ver Afiliados");
         menuItemVerAfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,29 +76,25 @@ public class Principal extends javax.swing.JFrame {
         });
         menuAfiliado.add(menuItemVerAfil);
 
-        menuItemEliminarAfil.setText("Eliminar Afiliado");
-        menuItemEliminarAfil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemEliminarAfilActionPerformed(evt);
-            }
-        });
-        menuAfiliado.add(menuItemEliminarAfil);
-
         jMenuBar1.add(menuAfiliado);
 
         menuEmpleados.setText("Empleados");
 
-        menuItemAdms.setText("Administrativos");
-        menuEmpleados.add(menuItemAdms);
+        menuItemAdd.setText("Agregar");
+        menuItemAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemAddActionPerformed(evt);
+            }
+        });
+        menuEmpleados.add(menuItemAdd);
 
-        menuItemEnf.setText("Enfermeros");
-        menuEmpleados.add(menuItemEnf);
-
-        menuItemDoc.setText("Doctores");
-        menuEmpleados.add(menuItemDoc);
-
-        menuItemChof.setText("Choferes");
-        menuEmpleados.add(menuItemChof);
+        menuItemVer.setText("Ver");
+        menuItemVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemVerActionPerformed(evt);
+            }
+        });
+        menuEmpleados.add(menuItemVer);
 
         jMenuBar1.add(menuEmpleados);
 
@@ -127,13 +111,13 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -149,17 +133,8 @@ public class Principal extends javax.swing.JFrame {
         ventana.show();
     }//GEN-LAST:event_menuItemAddAfilActionPerformed
 
-    private void menuItemAddFliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAddFliaActionPerformed
-        FamiliarVent ventana = new FamiliarVent(emp);
-        desktopPane.add(ventana);
-        Dimension desktopSize = ventana.getSize();
-        Dimension FrameSize = ventana.getSize();
-        ventana.setLocation(((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
-        ventana.show();
-    }//GEN-LAST:event_menuItemAddFliaActionPerformed
-
     private void menuItemVerAfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemVerAfilActionPerformed
-        VerAfiliaVent ventana = new VerAfiliaVent(emp);
+        VerRemoveAfiliadoVent ventana = new VerRemoveAfiliadoVent(emp);
         desktopPane.add(ventana);
         Dimension desktopSize = ventana.getSize();
         Dimension FrameSize = ventana.getSize();
@@ -167,14 +142,23 @@ public class Principal extends javax.swing.JFrame {
         ventana.show();
     }//GEN-LAST:event_menuItemVerAfilActionPerformed
 
-    private void menuItemEliminarAfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEliminarAfilActionPerformed
-        EliminarAfiliadoVent ventana = new EliminarAfiliadoVent(emp);
+    private void menuItemAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAddActionPerformed
+        EmpleadoAddVent ventana = new EmpleadoAddVent(emp);
         desktopPane.add(ventana);
         Dimension desktopSize = ventana.getSize();
         Dimension FrameSize = ventana.getSize();
-        ventana.setLocation(((desktopSize.width - FrameSize.height)/2), ((desktopSize.width - FrameSize.height)/2));
+        ventana.setLocation (((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
         ventana.show();
-    }//GEN-LAST:event_menuItemEliminarAfilActionPerformed
+    }//GEN-LAST:event_menuItemAddActionPerformed
+
+    private void menuItemVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemVerActionPerformed
+        VerRemoveEmpleadoVent ventana = new VerRemoveEmpleadoVent(emp);
+        desktopPane.add(ventana);
+        Dimension desktopSize = ventana.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation (((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
+        ventana.show();
+    }//GEN-LAST:event_menuItemVerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,14 +200,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu menuAfiliado;
     private javax.swing.JMenu menuEmpleados;
+    private javax.swing.JMenuItem menuItemAdd;
     private javax.swing.JMenuItem menuItemAddAfil;
-    private javax.swing.JMenuItem menuItemAddFlia;
     private javax.swing.JMenuItem menuItemAdm2;
-    private javax.swing.JMenuItem menuItemAdms;
-    private javax.swing.JMenuItem menuItemChof;
-    private javax.swing.JMenuItem menuItemDoc;
-    private javax.swing.JMenuItem menuItemEliminarAfil;
-    private javax.swing.JMenuItem menuItemEnf;
+    private javax.swing.JMenuItem menuItemVer;
     private javax.swing.JMenuItem menuItemVerAfil;
     private javax.swing.JMenu menuMovil;
     // End of variables declaration//GEN-END:variables
