@@ -6,6 +6,7 @@
 package interfaz.grafica;
 
 import java.awt.Dimension;
+import laboratorio.Afiliado;
 import laboratorio.Persona;
 import laboratorio.Empresa;
 
@@ -21,6 +22,14 @@ public class VerRemoveAfiliadoVent extends javax.swing.JInternalFrame {
     public VerRemoveAfiliadoVent(Empresa emp) {
         this.emp = emp;
         initComponents();
+    }
+    
+    public void armarList(String numAfil){
+        int numAf = Integer.parseInt(numAfil);
+        Afiliado afi = emp.buscarAf(numAf);
+        for(int i = 0; i < afi.getPago().size(); i++){
+            listFecha.add(afi.getPago().get(i).getFechaPago());
+        }
     }
 
     /**
@@ -52,6 +61,9 @@ public class VerRemoveAfiliadoVent extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         buttonEliminar = new javax.swing.JButton();
         buttonAddFlia = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        buttonModificar = new javax.swing.JButton();
+        listFecha = new java.awt.List();
 
         setClosable(true);
         setResizable(true);
@@ -121,6 +133,16 @@ public class VerRemoveAfiliadoVent extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setText("Fechas de Pago:");
+
+        buttonModificar.setText("Modificar");
+        buttonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonModificarActionPerformed(evt);
+            }
+        });
+
         desktopPane.setLayer(labelDomicilio3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         desktopPane.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
         desktopPane.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -140,70 +162,70 @@ public class VerRemoveAfiliadoVent extends javax.swing.JInternalFrame {
         desktopPane.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         desktopPane.setLayer(buttonEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         desktopPane.setLayer(buttonAddFlia, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        desktopPane.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        desktopPane.setLayer(buttonModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        desktopPane.setLayer(listFecha, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout desktopPaneLayout = new javax.swing.GroupLayout(desktopPane);
         desktopPane.setLayout(desktopPaneLayout);
         desktopPaneLayout.setHorizontalGroup(
             desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(desktopPaneLayout.createSequentialGroup()
-                .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(desktopPaneLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(labelApellido3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, desktopPaneLayout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(labelNombre3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(desktopPaneLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(desktopPaneLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(buttonAddFlia)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonGrupoFlia)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)
+                        .addGap(47, 47, 47))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopPaneLayout.createSequentialGroup()
                         .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(desktopPaneLayout.createSequentialGroup()
-                                .addComponent(jLabel9)
+                                .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelEdad3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(labelDomicilio3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(desktopPaneLayout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(labelSexo3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(desktopPaneLayout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelEdad3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(desktopPaneLayout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelDni3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(labelDni3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(desktopPaneLayout.createSequentialGroup()
-                                .addComponent(jLabel11)
+                                .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel13))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelDomicilio3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopPaneLayout.createSequentialGroup()
-                        .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(desktopPaneLayout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, desktopPaneLayout.createSequentialGroup()
-                                .addGap(172, 206, Short.MAX_VALUE)
-                                .addComponent(buttonBuscar)
-                                .addGap(18, 18, 18)
-                                .addComponent(buttonEliminar)
-                                .addGap(63, 63, 63))
-                            .addGroup(desktopPaneLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(buttonAddFlia)
-                                .addGap(18, 18, 18)
-                                .addComponent(buttonGrupoFlia)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3)))
-                        .addGap(47, 47, 47))))
+                                .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelNombre3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelApellido3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(listFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(desktopPaneLayout.createSequentialGroup()
+                        .addGap(172, 206, Short.MAX_VALUE)
+                        .addComponent(buttonBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonModificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonEliminar)
+                        .addGap(35, 35, 35))))
             .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(desktopPaneLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel13)
-                        .addGroup(desktopPaneLayout.createSequentialGroup()
-                            .addComponent(jLabel12)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(varNumAfil, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel12)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(varNumAfil, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(276, Short.MAX_VALUE)))
         );
         desktopPaneLayout.setVerticalGroup(
@@ -212,46 +234,51 @@ public class VerRemoveAfiliadoVent extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonBuscar)
-                    .addComponent(buttonEliminar))
-                .addGap(9, 9, 9)
+                    .addComponent(buttonEliminar)
+                    .addComponent(buttonModificar))
+                .addGap(11, 11, 11)
                 .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(desktopPaneLayout.createSequentialGroup()
-                        .addComponent(labelNombre3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel14))
-                    .addComponent(labelApellido3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(labelDni3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(labelEdad3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(labelSexo3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelDomicilio3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
-                .addGap(18, 18, 18)
-                .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonGrupoFlia)
-                        .addComponent(buttonAddFlia))
+                        .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelNombre3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13))
+                        .addGap(18, 18, 18)
+                        .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel14)
+                            .addComponent(labelApellido3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(labelDni3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(labelEdad3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(labelSexo3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelDomicilio3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)))
+                    .addGroup(desktopPaneLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(listFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(37, 37, 37)
+                .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonAddFlia)
+                    .addComponent(buttonGrupoFlia)
                     .addComponent(jButton3))
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
             .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(desktopPaneLayout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel12)
                         .addComponent(varNumAfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(11, 11, 11)
-                    .addComponent(jLabel13)
-                    .addContainerGap(339, Short.MAX_VALUE)))
+                    .addContainerGap(377, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -281,6 +308,7 @@ public class VerRemoveAfiliadoVent extends javax.swing.JInternalFrame {
             labelEdad3.setText(edad);
             labelSexo3.setText(afi.getSexo());
             labelDomicilio3.setText(afi.getDomicilio());
+            armarList(varNumAfil.getText());
         }else{
             labelNombre3.setText("");
             labelApellido3.setText("");
@@ -298,7 +326,7 @@ public class VerRemoveAfiliadoVent extends javax.swing.JInternalFrame {
             int numAf = Integer.parseInt(varNumAfil.getText());
             Persona afi = emp.buscarAf(numAf);
             if(!(afi == null)){
-                VerFamiliarVent ventana = new VerFamiliarVent(emp, varNumAfil.getText());
+                VerRemoveFamiliarVent ventana = new VerRemoveFamiliarVent(emp, varNumAfil.getText());
                 desktopPane.add(ventana);
                 Dimension desktopSize = ventana.getSize();
                 Dimension FrameSize = ventana.getSize();
@@ -341,14 +369,25 @@ public class VerRemoveAfiliadoVent extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_buttonEliminarActionPerformed
 
+    private void buttonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificarActionPerformed
+        ModificarAfiliado ventana = new ModificarAfiliado(emp, varNumAfil.getText());
+        desktopPane.add(ventana);
+        Dimension desktopSize = ventana.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation (((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
+        ventana.show();
+    }//GEN-LAST:event_buttonModificarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddFlia;
     private javax.swing.JButton buttonBuscar;
     private javax.swing.JButton buttonEliminar;
     private javax.swing.JButton buttonGrupoFlia;
+    private javax.swing.JButton buttonModificar;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -362,6 +401,7 @@ public class VerRemoveAfiliadoVent extends javax.swing.JInternalFrame {
     private javax.swing.JLabel labelEdad3;
     private javax.swing.JLabel labelNombre3;
     private javax.swing.JLabel labelSexo3;
+    private java.awt.List listFecha;
     private javax.swing.JTextField varNumAfil;
     // End of variables declaration//GEN-END:variables
 }

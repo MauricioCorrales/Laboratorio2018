@@ -5,6 +5,7 @@
  */
 package interfaz.grafica;
 
+import javax.swing.JOptionPane;
 import laboratorio.Empleado;
 import laboratorio.Empresa;
 
@@ -233,7 +234,7 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
                 sexo = "Mujer";
             }
             else{
-                System.out.println("Sexo no elegido (231)");
+                JOptionPane.showMessageDialog(this, "Sexo no elegido");
             }
         }
         int edad = Integer.parseInt(varEdad.getText());
@@ -255,7 +256,7 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
         }
         Empleado empleado = new Empleado(varNombre.getText(), varApellido.getText(), edad, sexo, varDni.getText(), varDomicilio.getText(), varTitulo.getText(), tipo);
         emp.addEmpleado(empleado);
-        System.out.println("Empleado Agregado con Exito!! (253)");
+        JOptionPane.showMessageDialog(this, "Empleado Agregado con Exito!!");
     }//GEN-LAST:event_buttonGrabarActionPerformed
 
     private void varTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varTituloActionPerformed

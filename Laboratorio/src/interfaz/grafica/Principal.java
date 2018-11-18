@@ -41,7 +41,12 @@ public class Principal extends javax.swing.JFrame {
         menuItemAdd = new javax.swing.JMenuItem();
         menuItemVer = new javax.swing.JMenuItem();
         menuMovil = new javax.swing.JMenu();
-        menuItemAdm2 = new javax.swing.JMenuItem();
+        menuItemAddMovil = new javax.swing.JMenuItem();
+        menuItemVerMovil = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        menuItemPagoAdd = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        menuItemAddSoli = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,10 +105,42 @@ public class Principal extends javax.swing.JFrame {
 
         menuMovil.setText("Movil");
 
-        menuItemAdm2.setText("Administrar");
-        menuMovil.add(menuItemAdm2);
+        menuItemAddMovil.setText("Agregar");
+        menuItemAddMovil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemAddMovilActionPerformed(evt);
+            }
+        });
+        menuMovil.add(menuItemAddMovil);
+
+        menuItemVerMovil.setText("Ver");
+        menuItemVerMovil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemVerMovilActionPerformed(evt);
+            }
+        });
+        menuMovil.add(menuItemVerMovil);
 
         jMenuBar1.add(menuMovil);
+
+        jMenu1.setText("Registro Pago");
+
+        menuItemPagoAdd.setText("Agregar");
+        menuItemPagoAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemPagoAddActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuItemPagoAdd);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Solicitudes");
+
+        menuItemAddSoli.setText("Agregar");
+        jMenu2.add(menuItemAddSoli);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -160,6 +197,33 @@ public class Principal extends javax.swing.JFrame {
         ventana.show();
     }//GEN-LAST:event_menuItemVerActionPerformed
 
+    private void menuItemAddMovilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAddMovilActionPerformed
+        MovilVent ventana = new MovilVent(emp);
+        desktopPane.add(ventana);
+        Dimension desktopSize = ventana.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation (((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
+        ventana.show();
+    }//GEN-LAST:event_menuItemAddMovilActionPerformed
+
+    private void menuItemVerMovilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemVerMovilActionPerformed
+        VerRemoveMovilVent ventana = new VerRemoveMovilVent(emp);
+        desktopPane.add(ventana);
+        Dimension desktopSize = ventana.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation (((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
+        ventana.show();
+    }//GEN-LAST:event_menuItemVerMovilActionPerformed
+
+    private void menuItemPagoAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPagoAddActionPerformed
+        PagoVent ventana = new PagoVent(emp);
+        desktopPane.add(ventana);
+        Dimension desktopSize = ventana.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation (((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
+        ventana.show();
+    }//GEN-LAST:event_menuItemPagoAddActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -197,14 +261,19 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu menuAfiliado;
     private javax.swing.JMenu menuEmpleados;
     private javax.swing.JMenuItem menuItemAdd;
     private javax.swing.JMenuItem menuItemAddAfil;
-    private javax.swing.JMenuItem menuItemAdm2;
+    private javax.swing.JMenuItem menuItemAddMovil;
+    private javax.swing.JMenuItem menuItemAddSoli;
+    private javax.swing.JMenuItem menuItemPagoAdd;
     private javax.swing.JMenuItem menuItemVer;
     private javax.swing.JMenuItem menuItemVerAfil;
+    private javax.swing.JMenuItem menuItemVerMovil;
     private javax.swing.JMenu menuMovil;
     // End of variables declaration//GEN-END:variables
 }

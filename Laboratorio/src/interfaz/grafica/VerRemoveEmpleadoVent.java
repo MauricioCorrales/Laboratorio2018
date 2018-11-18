@@ -5,6 +5,8 @@
  */
 package interfaz.grafica;
 
+import java.awt.Dimension;
+import javax.swing.JOptionPane;
 import laboratorio.Empleado;
 import laboratorio.Empresa;
 
@@ -21,6 +23,13 @@ public class VerRemoveEmpleadoVent extends javax.swing.JInternalFrame {
     public VerRemoveEmpleadoVent(Empresa emp) {
         this.emp = emp;
         initComponents();
+        armarList();
+    }
+    
+    public void armarList(){
+        for(int i = 0; i < emp.getEmpleado().size(); i++){
+            listEmpleado.add(emp.getEmpleado().get(i).getNombre());
+        }
     }
 
     /**
@@ -32,30 +41,32 @@ public class VerRemoveEmpleadoVent extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        varDni = new javax.swing.JTextField();
+        desktopPane = new javax.swing.JDesktopPane();
+        listEmpleado = new java.awt.List();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TextPane = new javax.swing.JTextPane();
-        buttonBuscar = new javax.swing.JButton();
+        textPane = new javax.swing.JTextPane();
+        buttonModificar = new javax.swing.JButton();
         buttonEliminar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        buttonActualizar = new javax.swing.JButton();
 
         setClosable(true);
 
-        jLabel2.setText("Nº Documento:");
+        desktopPane.setBackground(new java.awt.Color(255, 255, 255));
 
-        varDni.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        varDni.addActionListener(new java.awt.event.ActionListener() {
+        listEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                varDniActionPerformed(evt);
+                listEmpleadoActionPerformed(evt);
             }
         });
 
-        jScrollPane1.setViewportView(TextPane);
+        jScrollPane1.setViewportView(textPane);
 
-        buttonBuscar.setText("Buscar");
-        buttonBuscar.addActionListener(new java.awt.event.ActionListener() {
+        buttonModificar.setText("Modificar");
+        buttonModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonBuscarActionPerformed(evt);
+                buttonModificarActionPerformed(evt);
             }
         });
 
@@ -66,74 +77,129 @@ public class VerRemoveEmpleadoVent extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setText("Nombre de Empleado:");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setText("Datos del Empleado:");
+
+        buttonActualizar.setText("Actualizar");
+        buttonActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonActualizarActionPerformed(evt);
+            }
+        });
+
+        desktopPane.setLayer(listEmpleado, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        desktopPane.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        desktopPane.setLayer(buttonModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        desktopPane.setLayer(buttonEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        desktopPane.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        desktopPane.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        desktopPane.setLayer(buttonActualizar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout desktopPaneLayout = new javax.swing.GroupLayout(desktopPane);
+        desktopPane.setLayout(desktopPaneLayout);
+        desktopPaneLayout.setHorizontalGroup(
+            desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(desktopPaneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopPaneLayout.createSequentialGroup()
+                        .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(desktopPaneLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(buttonActualizar)
+                                .addGap(18, 18, 18)
+                                .addComponent(buttonModificar)
+                                .addGap(18, 18, 18)
+                                .addComponent(buttonEliminar))
+                            .addGroup(desktopPaneLayout.createSequentialGroup()
+                                .addComponent(listEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(19, 19, 19)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(28, 28, 28))
+                    .addGroup(desktopPaneLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        desktopPaneLayout.setVerticalGroup(
+            desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(desktopPaneLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(listEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonModificar)
+                    .addComponent(buttonEliminar)
+                    .addComponent(buttonActualizar))
+                .addContainerGap(92, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(varDni, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(buttonBuscar)
-                .addContainerGap(76, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(buttonEliminar)))
-                .addContainerGap())
+            .addComponent(desktopPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(varDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonBuscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(buttonEliminar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(desktopPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void varDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varDniActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_varDniActionPerformed
-
-    private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarActionPerformed
-        Empleado empleado = emp.buscarEmp(varDni.getText());
-        if(!(empleado==null)){
-            TextPane.setText("Tipo: " + empleado.getTipo() + "\nNombre: " + empleado.getNombre() + "\nApellido: " + empleado.getApellido() + "\nNº Documento: " + empleado.getDni() + "\nEdad: " + empleado.getEdad() + "\nSexo: " + empleado.getSexo() + "\nTitulo: " + empleado.getTitulo()+ "\nDomicilio: " + empleado.getDomicilio());
-        }else{
-            TextPane.setText("");
-            System.out.println("Afiliado no encontrado (198 VREV)");
-        }
-    }//GEN-LAST:event_buttonBuscarActionPerformed
-
     private void buttonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminarActionPerformed
-        if(emp.eliminarEmp(varDni.getText())){
-            System.out.println("Empleado Eliminado con Exito!! (116 VREV)");
+        if(emp.eliminarEmp(emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getDni())){
+            JOptionPane.showMessageDialog(this, "Empleado eliminado con Exito!!");
+            textPane.setText("");
+            listEmpleado.clear();
+            armarList();
         }else{
-            System.out.println("Error");
+            JOptionPane.showMessageDialog(this, "Error al eliminar el Empleado");
         }
     }//GEN-LAST:event_buttonEliminarActionPerformed
 
+    private void listEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listEmpleadoActionPerformed
+        String edad = String.valueOf(emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getEdad());
+        textPane.setText("Categoria: " + emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getCategoria() + "\nNombre: " + emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getNombre() + "\nApellido: " + emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getApellido() + "\nNº Documento: " + emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getDni() + "\nEdad: " + edad + "\nSexo: " + emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getSexo() + "\nTitulo: " + emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getTitulo()+ "\nDomicilio: " + emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getDomicilio());
+    }//GEN-LAST:event_listEmpleadoActionPerformed
+
+    private void buttonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificarActionPerformed
+        ModificarEmpleado ventana = new ModificarEmpleado(emp, emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getDni());
+        desktopPane.add(ventana);
+        Dimension desktopSize = ventana.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation (((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
+        ventana.show();
+    }//GEN-LAST:event_buttonModificarActionPerformed
+
+    private void buttonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActualizarActionPerformed
+        listEmpleado.clear();
+        textPane.setText("");
+        armarList();
+    }//GEN-LAST:event_buttonActualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextPane TextPane;
-    private javax.swing.JButton buttonBuscar;
+    private javax.swing.JButton buttonActualizar;
     private javax.swing.JButton buttonEliminar;
+    private javax.swing.JButton buttonModificar;
+    private javax.swing.JDesktopPane desktopPane;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField varDni;
+    private java.awt.List listEmpleado;
+    private javax.swing.JTextPane textPane;
     // End of variables declaration//GEN-END:variables
 }
