@@ -41,12 +41,12 @@ public class AfiliadoVent extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         varNumAfil = new javax.swing.JTextField();
         varNombre = new javax.swing.JTextField();
-        varDni = new javax.swing.JTextField();
         varDomicilio = new javax.swing.JTextField();
         buttonGrabar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         varApeliido = new javax.swing.JTextField();
-        varEdad = new javax.swing.JTextField();
+        varEdad = new javax.swing.JFormattedTextField();
+        varDni = new javax.swing.JFormattedTextField();
 
         setClosable(true);
 
@@ -91,13 +91,6 @@ public class AfiliadoVent extends javax.swing.JInternalFrame {
             }
         });
 
-        varDni.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        varDni.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                varDniActionPerformed(evt);
-            }
-        });
-
         varDomicilio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         buttonGrabar.setText("Grabar");
@@ -111,6 +104,38 @@ public class AfiliadoVent extends javax.swing.JInternalFrame {
         jLabel8.setText("Apellido:");
 
         varApeliido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        varEdad.setFormatterFactory(new javax.swing.JFormattedTextField.AbstractFormatterFactory(){
+            public javax.swing.JFormattedTextField.AbstractFormatter
+            getFormatter(javax.swing.JFormattedTextField tf){
+                try{
+                    return new javax.swing.text.MaskFormatter("##");
+                } catch (java.text.ParseException pe){
+                    pe.printStackTrace(); 
+                }
+                return null;
+            }
+        });
+        varEdad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        varEdad.setToolTipText("");
+        varEdad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                varEdadActionPerformed(evt);
+            }
+        });
+
+        varDni.setFormatterFactory(new javax.swing.JFormattedTextField.AbstractFormatterFactory(){
+            public javax.swing.JFormattedTextField.AbstractFormatter
+            getFormatter(javax.swing.JFormattedTextField tf){
+                try{
+                    return new javax.swing.text.MaskFormatter("##.###.###");
+                } catch (java.text.ParseException pe){
+                    pe.printStackTrace(); 
+                }
+                return null;
+            }
+        });
+        varDni.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,24 +170,24 @@ public class AfiliadoVent extends javax.swing.JInternalFrame {
                         .addComponent(radButtonHombre)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(radButtonMujer))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(varApeliido))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(varDni, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(varEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(varEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(varDni))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel8)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(varApeliido, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(varNumAfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -230,14 +255,18 @@ public class AfiliadoVent extends javax.swing.JInternalFrame {
         }
         int numAf = Integer.parseInt(varNumAfil.getText());
         int edad = Integer.parseInt(varEdad.getText());
-        Afiliado af = new Afiliado(varNombre.getText(), varApeliido.getText(), edad, sexo, varDni.getText(), varDomicilio.getText(), numAf);
-        emp.addAfiliado(af);
-        System.out.println("Afiliado agregado con exito!!(249 AfiliadoVent)");
+        if(emp.validarDni(varDni.getText())){
+            Afiliado af = new Afiliado(varNombre.getText(), varApeliido.getText(), edad, sexo, varDni.getText(), varDomicilio.getText(), numAf);
+            emp.addAfiliado(af);
+            JOptionPane.showMessageDialog(null, "Afiliado agregado con exito!!");
+        }else{
+            JOptionPane.showMessageDialog(null, "Nº Documento ya existe o no fue ingresado");
+        }
     }//GEN-LAST:event_buttonGrabarActionPerformed
 
-    private void varDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varDniActionPerformed
+    private void varEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varEdadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_varDniActionPerformed
+    }//GEN-LAST:event_varEdadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -252,9 +281,9 @@ public class AfiliadoVent extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton radButtonHombre;
     private javax.swing.JRadioButton radButtonMujer;
     private javax.swing.JTextField varApeliido;
-    private javax.swing.JTextField varDni;
+    private javax.swing.JFormattedTextField varDni;
     private javax.swing.JTextField varDomicilio;
-    private javax.swing.JTextField varEdad;
+    private javax.swing.JFormattedTextField varEdad;
     private javax.swing.JTextField varNombre;
     private javax.swing.JTextField varNumAfil;
     // End of variables declaration//GEN-END:variables

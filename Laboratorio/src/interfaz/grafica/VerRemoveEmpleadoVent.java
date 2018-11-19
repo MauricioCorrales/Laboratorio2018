@@ -28,7 +28,7 @@ public class VerRemoveEmpleadoVent extends javax.swing.JInternalFrame {
     
     public void armarList(){
         for(int i = 0; i < emp.getEmpleado().size(); i++){
-            listEmpleado.add(emp.getEmpleado().get(i).getNombre());
+            listEmpleado.add(emp.getEmpleado().get(i).getNombre() + " " + emp.getEmpleado().get(i).getApellido());
         }
     }
 
@@ -178,7 +178,7 @@ public class VerRemoveEmpleadoVent extends javax.swing.JInternalFrame {
     private void buttonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificarActionPerformed
         ModificarEmpleado ventana = new ModificarEmpleado(emp, emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getDni());
         desktopPane.add(ventana);
-        Dimension desktopSize = ventana.getSize();
+        Dimension desktopSize = desktopPane.getSize();
         Dimension FrameSize = ventana.getSize();
         ventana.setLocation (((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
         ventana.show();

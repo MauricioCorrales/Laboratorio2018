@@ -39,9 +39,9 @@ public class MovilVent extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         varMarca = new javax.swing.JTextField();
         varModelo = new javax.swing.JTextField();
-        varPatente = new javax.swing.JTextField();
         varAño = new javax.swing.JTextField();
         buttonGrabar = new javax.swing.JButton();
+        varPatente = new javax.swing.JFormattedTextField();
 
         setClosable(true);
 
@@ -66,8 +66,6 @@ public class MovilVent extends javax.swing.JInternalFrame {
             }
         });
 
-        varPatente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
         varAño.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         varAño.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,34 +80,52 @@ public class MovilVent extends javax.swing.JInternalFrame {
             }
         });
 
+        varPatente.setFormatterFactory(new javax.swing.JFormattedTextField.AbstractFormatterFactory(){
+            public javax.swing.JFormattedTextField.AbstractFormatter
+            getFormatter(javax.swing.JFormattedTextField tf){
+                try{
+                    return new javax.swing.text.MaskFormatter("UU-###-UU");
+                } catch (java.text.ParseException pe){
+                    pe.printStackTrace(); 
+                }
+                return null;
+            }
+        });
+        varPatente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        varPatente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                varPatenteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(159, Short.MAX_VALUE)
+                .addComponent(buttonGrabar)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(varAño, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(varPatente))
+                        .addComponent(varMarca))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(varModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(varModelo))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(varMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(56, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttonGrabar)
-                .addContainerGap())
+                        .addComponent(varPatente, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +146,7 @@ public class MovilVent extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(varAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addComponent(buttonGrabar)
                 .addContainerGap())
         );
@@ -152,6 +168,10 @@ public class MovilVent extends javax.swing.JInternalFrame {
         JOptionPane.showMessageDialog(null, "Movil agregado con Exito!!");
     }//GEN-LAST:event_buttonGrabarActionPerformed
 
+    private void varPatenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varPatenteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_varPatenteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonGrabar;
@@ -162,6 +182,6 @@ public class MovilVent extends javax.swing.JInternalFrame {
     private javax.swing.JTextField varAño;
     private javax.swing.JTextField varMarca;
     private javax.swing.JTextField varModelo;
-    private javax.swing.JTextField varPatente;
+    private javax.swing.JFormattedTextField varPatente;
     // End of variables declaration//GEN-END:variables
 }

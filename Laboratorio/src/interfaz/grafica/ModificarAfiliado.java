@@ -53,16 +53,16 @@ public class ModificarAfiliado extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         varApellido = new javax.swing.JTextField();
-        varEdad = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         varNumAfil = new javax.swing.JTextField();
         varNombre = new javax.swing.JTextField();
-        varDni = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         varDomicilio = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         varSexo = new javax.swing.JTextField();
+        varDni = new javax.swing.JFormattedTextField();
+        varEdad = new javax.swing.JFormattedTextField();
 
         setClosable(true);
 
@@ -99,13 +99,6 @@ public class ModificarAfiliado extends javax.swing.JInternalFrame {
             }
         });
 
-        varDni.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        varDni.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                varDniActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Nombre:");
 
@@ -117,6 +110,38 @@ public class ModificarAfiliado extends javax.swing.JInternalFrame {
         varSexo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 varSexoActionPerformed(evt);
+            }
+        });
+
+        varDni.setFormatterFactory(new javax.swing.JFormattedTextField.AbstractFormatterFactory(){
+            public javax.swing.JFormattedTextField.AbstractFormatter
+            getFormatter(javax.swing.JFormattedTextField tf){
+                try{
+                    return new javax.swing.text.MaskFormatter("##.###.###");
+                } catch (java.text.ParseException pe){
+                    pe.printStackTrace(); 
+                }
+                return null;
+            }
+        });
+        varDni.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        varEdad.setFormatterFactory(new javax.swing.JFormattedTextField.AbstractFormatterFactory(){
+            public javax.swing.JFormattedTextField.AbstractFormatter
+            getFormatter(javax.swing.JFormattedTextField tf){
+                try{
+                    return new javax.swing.text.MaskFormatter("##");
+                } catch (java.text.ParseException pe){
+                    pe.printStackTrace(); 
+                }
+                return null;
+            }
+        });
+        varEdad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        varEdad.setToolTipText("");
+        varEdad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                varEdadActionPerformed(evt);
             }
         });
 
@@ -152,23 +177,24 @@ public class ModificarAfiliado extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(varSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel8)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(varApellido))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(varDni, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(varDni, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap()))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(varEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(varEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(varNumAfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -205,25 +231,31 @@ public class ModificarAfiliado extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificarActionPerformed
-        emp.eliminarAf(numAf1);
         int numAf = Integer.parseInt(varNumAfil.getText());
         int edad = Integer.parseInt(varEdad.getText());
         Afiliado afil = new Afiliado(varNombre.getText(), varApellido.getText(), edad, varSexo.getText(), varDni.getText(), varDomicilio.getText(), numAf);
-        emp.addAfiliado(afil);
-        JOptionPane.showMessageDialog(null, "Afiliado modificado con Exito!!");
+        Afiliado afil2 = emp.buscarAf(numAf1);
+        afil.getFlia().addAll(afil2.getFlia());
+        emp.eliminarAf(numAf1);
+        if(emp.validarDni(varDni.getText())){
+            emp.addAfiliado(afil);
+            JOptionPane.showMessageDialog(null, "Afiliado modificado con Exito!!");
+        }else{
+            JOptionPane.showMessageDialog(null, "Nº Documento ya existe o no fue ingresado");
+        }
     }//GEN-LAST:event_buttonModificarActionPerformed
 
     private void varNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_varNombreActionPerformed
 
-    private void varDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varDniActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_varDniActionPerformed
-
     private void varSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varSexoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_varSexoActionPerformed
+
+    private void varEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varEdadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_varEdadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -236,9 +268,9 @@ public class ModificarAfiliado extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField varApellido;
-    private javax.swing.JTextField varDni;
+    private javax.swing.JFormattedTextField varDni;
     private javax.swing.JTextField varDomicilio;
-    private javax.swing.JTextField varEdad;
+    private javax.swing.JFormattedTextField varEdad;
     private javax.swing.JTextField varNombre;
     private javax.swing.JTextField varNumAfil;
     private javax.swing.JTextField varSexo;

@@ -6,6 +6,7 @@
 package interfaz.grafica;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import laboratorio.Empresa;
 import laboratorio.Familiar;
 /**
@@ -35,7 +36,6 @@ public class FamiliarVent extends javax.swing.JInternalFrame {
 
         varNombre = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        varDni = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         varDomicilio = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -46,12 +46,13 @@ public class FamiliarVent extends javax.swing.JInternalFrame {
         radButtonMujer = new javax.swing.JRadioButton();
         varApellido = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        varEdad = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         labelNumAfil = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         varTipoFamiliar = new javax.swing.JTextField();
+        varEdad = new javax.swing.JFormattedTextField();
+        varDni = new javax.swing.JFormattedTextField();
 
         setClosable(true);
 
@@ -64,13 +65,6 @@ public class FamiliarVent extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Nombre:");
-
-        varDni.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        varDni.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                varDniActionPerformed(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Nº Documento:");
@@ -125,6 +119,38 @@ public class FamiliarVent extends javax.swing.JInternalFrame {
 
         varTipoFamiliar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
+        varEdad.setFormatterFactory(new javax.swing.JFormattedTextField.AbstractFormatterFactory(){
+            public javax.swing.JFormattedTextField.AbstractFormatter
+            getFormatter(javax.swing.JFormattedTextField tf){
+                try{
+                    return new javax.swing.text.MaskFormatter("##");
+                } catch (java.text.ParseException pe){
+                    pe.printStackTrace(); 
+                }
+                return null;
+            }
+        });
+        varEdad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        varEdad.setToolTipText("");
+        varEdad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                varEdadActionPerformed(evt);
+            }
+        });
+
+        varDni.setFormatterFactory(new javax.swing.JFormattedTextField.AbstractFormatterFactory(){
+            public javax.swing.JFormattedTextField.AbstractFormatter
+            getFormatter(javax.swing.JFormattedTextField tf){
+                try{
+                    return new javax.swing.text.MaskFormatter("##.###.###");
+                } catch (java.text.ParseException pe){
+                    pe.printStackTrace(); 
+                }
+                return null;
+            }
+        });
+        varDni.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,9 +163,17 @@ public class FamiliarVent extends javax.swing.JInternalFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(varDni, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(varTipoFamiliar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(varApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -152,33 +186,20 @@ public class FamiliarVent extends javax.swing.JInternalFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(varNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(154, 154, 154))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel7)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addComponent(jLabel7))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(radButtonHombre)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(radButtonMujer))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel8)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(varApellido))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(varDni, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(varEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(varEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(labelNumAfil, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(labelNumAfil, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addGap(116, 116, 116)
                                     .addComponent(jLabel9)))
@@ -223,7 +244,7 @@ public class FamiliarVent extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(varTipoFamiliar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(buttonGrabar)
                 .addContainerGap())
         );
@@ -234,10 +255,6 @@ public class FamiliarVent extends javax.swing.JInternalFrame {
     private void varNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_varNombreActionPerformed
-
-    private void varDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varDniActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_varDniActionPerformed
 
     private void buttonGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrabarActionPerformed
         String sexo = null;
@@ -254,12 +271,15 @@ public class FamiliarVent extends javax.swing.JInternalFrame {
         }
         int numAf = Integer.parseInt(labelNumAfil.getText());
         int edad = Integer.parseInt(varEdad.getText());
-        Familiar flia = new Familiar(varNombre.getText(), varApellido.getText(), edad, sexo, varDni.getText(), varDomicilio.getText(), varTipoFamiliar.getText());
-        if(emp.addFamilia(numAf, flia) == 1){
-            System.out.println("Familiar agregado con exito!!(252 FamiliarVent)");
-        }else{
-            System.out.println("Error");
-        }
+        if(emp.validarDni(varDni.getText())){
+            Familiar flia = new Familiar(varNombre.getText(), varApellido.getText(), edad, sexo, varDni.getText(), varDomicilio.getText(), varTipoFamiliar.getText());
+            if(emp.addFamilia(numAf, flia) == 1){
+                JOptionPane.showMessageDialog(null, "Familiar agregado con exito!!");
+            }else{
+                JOptionPane.showMessageDialog(null, "Error");
+            }
+        }else
+            JOptionPane.showMessageDialog(null, "Nº Documento ya existe o no fue ingresado");
     }//GEN-LAST:event_buttonGrabarActionPerformed
 
     private void radButtonHombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radButtonHombreActionPerformed
@@ -273,6 +293,10 @@ public class FamiliarVent extends javax.swing.JInternalFrame {
             radButtonHombre.setSelected(false);
         }
     }//GEN-LAST:event_radButtonMujerActionPerformed
+
+    private void varEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varEdadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_varEdadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -290,9 +314,9 @@ public class FamiliarVent extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton radButtonHombre;
     private javax.swing.JRadioButton radButtonMujer;
     private javax.swing.JTextField varApellido;
-    private javax.swing.JTextField varDni;
+    private javax.swing.JFormattedTextField varDni;
     private javax.swing.JTextField varDomicilio;
-    private javax.swing.JTextField varEdad;
+    private javax.swing.JFormattedTextField varEdad;
     private javax.swing.JTextField varNombre;
     private javax.swing.JTextField varTipoFamiliar;
     // End of variables declaration//GEN-END:variables

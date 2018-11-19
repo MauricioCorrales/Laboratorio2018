@@ -1,67 +1,120 @@
-
 package laboratorio;
 
 public class RegistroSolicitud {
-    private String fecha;
-    private String tipoDeAdministrativo;
-    private String tipoDeMovil;
-    private String tipoDeChofer;
-    private String tipoDeMedico;
-    private String tipoDeEnfermero;
     
-    public void verificar(int numAf){
-        
+    private String afiliado;
+    private String familiar;
+    private String doctor;
+    private String enfermero;
+    private String movil;
+    private String chofer;
+    private String tipo;
+    private Fecha fecha;
+    private int numSoli;
+    private RegistroResultado regRes;
+
+
+    public RegistroSolicitud(String afiliado, String familiar, String doctor, String enfermero, String movil, String chofer, String tipo, Fecha fecha, int numSoli) {
+        this.afiliado = afiliado;
+        this.familiar = familiar;
+        this.doctor = doctor;
+        this.enfermero = enfermero;
+        this.movil = movil;
+        this.chofer = chofer;
+        this.tipo = tipo;
+        this.fecha = fecha; 
+        this.numSoli = numSoli;
     }
     
-    public void asignar(){
-        
+    public RegistroSolicitud(String afiliado, String doctor, String enfermero, String movil, String chofer, String tipo, Fecha fecha, int numSoli) {
+        this.afiliado = afiliado;
+        this.doctor = doctor;
+        this.enfermero = enfermero;
+        this.movil = movil;
+        this.chofer = chofer;
+        this.tipo = tipo;
+        this.fecha = fecha;
+        this.numSoli = numSoli;
     }
 
-    public String getFecha() {
+    public String getAfiliado() {
+        return afiliado;
+    }
+
+    public void setAfiliado(String afiliado) {
+        this.afiliado = afiliado;
+    }
+
+    public String getFamiliar() {
+        return familiar;
+    }
+
+    public void setFamiliar(String familiar) {
+        this.familiar = familiar;
+    }
+
+    public String getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(String doctor) {
+        this.doctor = doctor;
+    }
+
+    public String getEnfermero() {
+        return enfermero;
+    }
+
+    public void setEnfermero(String enfermero) {
+        this.enfermero = enfermero;
+    }
+
+    public String getMovil() {
+        return movil;
+    }
+
+    public void setMovil(String movil) {
+        this.movil = movil;
+    }
+
+    public String getChofer() {
+        return chofer;
+    }
+
+    public void setChofer(String chofer) {
+        this.chofer = chofer;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public Fecha getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Fecha fecha) {
         this.fecha = fecha;
     }
 
-    public String getTipoDeAdministrativo() {
-        return tipoDeAdministrativo;
+    public int getNumSoli() {
+        return numSoli;
     }
 
-    public void setTipoDeAdministrativo(String tipoDeAdministrativo) {
-        this.tipoDeAdministrativo = tipoDeAdministrativo;
+    public void setNumSoli(int numSoli) {
+        this.numSoli = numSoli;
     }
 
-    public String getTipoDeMovil() {
-        return tipoDeMovil;
+    public RegistroResultado getRegRes() {
+        return regRes;
     }
 
-    public void setTipoDeMovil(String tipoDeMovil) {
-        this.tipoDeMovil = tipoDeMovil;
+    public void setRegRes(RegistroResultado regRes) {
+        this.regRes = regRes;
     }
-
-    public String getTipoDeChofer() {
-        return tipoDeChofer;
-    }
-
-    public void setTipoDeChofer(String tipoDeChofer) {
-        this.tipoDeChofer = tipoDeChofer;
-    }
-
-    public String getTipoDeMedico() {
-        return tipoDeMedico;
-    }
-
-    public void setTipoDeMedico(String tipoDeMedico) {
-        this.tipoDeMedico = tipoDeMedico;
-    }
-
-    public String getTipoDeEnfermero() {
-        return tipoDeEnfermero;
-    }
-
-    public void setTipoDeEnfermero(String tipoDeEnfermero) {
-        this.tipoDeEnfermero = tipoDeEnfermero;
-    }
+    
 }

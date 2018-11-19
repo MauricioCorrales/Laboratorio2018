@@ -59,13 +59,13 @@ public class ModificarEmpleado extends javax.swing.JInternalFrame {
         varCategoria = new javax.swing.JTextField();
         varNombre = new javax.swing.JTextField();
         varApellido = new javax.swing.JTextField();
-        varDni = new javax.swing.JTextField();
         varTitulo = new javax.swing.JTextField();
         varDomicilio = new javax.swing.JTextField();
         varSexo = new javax.swing.JTextField();
         buttonModificar = new javax.swing.JButton();
         labelEdad = new javax.swing.JLabel();
-        varEdad = new javax.swing.JTextField();
+        varEdad = new javax.swing.JFormattedTextField();
+        varDni = new javax.swing.JFormattedTextField();
 
         setClosable(true);
 
@@ -96,8 +96,6 @@ public class ModificarEmpleado extends javax.swing.JInternalFrame {
 
         varApellido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        varDni.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
         varTitulo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         varTitulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,6 +116,38 @@ public class ModificarEmpleado extends javax.swing.JInternalFrame {
 
         labelEdad.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         labelEdad.setText("Edad:");
+
+        varEdad.setFormatterFactory(new javax.swing.JFormattedTextField.AbstractFormatterFactory(){
+            public javax.swing.JFormattedTextField.AbstractFormatter
+            getFormatter(javax.swing.JFormattedTextField tf){
+                try{
+                    return new javax.swing.text.MaskFormatter("##");
+                } catch (java.text.ParseException pe){
+                    pe.printStackTrace(); 
+                }
+                return null;
+            }
+        });
+        varEdad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        varEdad.setToolTipText("");
+        varEdad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                varEdadActionPerformed(evt);
+            }
+        });
+
+        varDni.setFormatterFactory(new javax.swing.JFormattedTextField.AbstractFormatterFactory(){
+            public javax.swing.JFormattedTextField.AbstractFormatter
+            getFormatter(javax.swing.JFormattedTextField tf){
+                try{
+                    return new javax.swing.text.MaskFormatter("##.###.###");
+                } catch (java.text.ParseException pe){
+                    pe.printStackTrace(); 
+                }
+                return null;
+            }
+        });
+        varDni.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,29 +174,26 @@ public class ModificarEmpleado extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(varDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelEdad)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(varEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(varApellido))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(varNombre))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(varCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(varDni, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(69, 69, 69)))
+                        .addComponent(labelEdad)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(varEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(varApellido))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(varNombre))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(varCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(varDni, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -204,7 +231,7 @@ public class ModificarEmpleado extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(varDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(buttonModificar)
                 .addContainerGap())
         );
@@ -219,10 +246,18 @@ public class ModificarEmpleado extends javax.swing.JInternalFrame {
     private void buttonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificarActionPerformed
         emp.eliminarEmp(dni1);
         int edad = Integer.parseInt(varEdad.getText());
-        Empleado empleado = new Empleado(varNombre.getText(), varApellido.getText(), edad, varSexo.getText(), varDni.getText(), varDomicilio.getText(), varTitulo.getText(), varCategoria.getText());
-        emp.addEmpleado(empleado);
-        JOptionPane.showMessageDialog(null, "Empleado modificado con Exito!!");
+        if(emp.validarDni(varDni.getText())){
+            Empleado empleado = new Empleado(varNombre.getText(), varApellido.getText(), edad, varSexo.getText(), varDni.getText(), varDomicilio.getText(), varTitulo.getText(), varCategoria.getText());
+            emp.addEmpleado(empleado);
+            JOptionPane.showMessageDialog(null, "Empleado modificado con Exito!!");
+        }else{
+            JOptionPane.showMessageDialog(null, "Nº Documento ya existe o no fue ingresado");
+        }
     }//GEN-LAST:event_buttonModificarActionPerformed
+
+    private void varEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varEdadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_varEdadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -237,9 +272,9 @@ public class ModificarEmpleado extends javax.swing.JInternalFrame {
     private javax.swing.JLabel labelEdad;
     private javax.swing.JTextField varApellido;
     private javax.swing.JTextField varCategoria;
-    private javax.swing.JTextField varDni;
+    private javax.swing.JFormattedTextField varDni;
     private javax.swing.JTextField varDomicilio;
-    private javax.swing.JTextField varEdad;
+    private javax.swing.JFormattedTextField varEdad;
     private javax.swing.JTextField varNombre;
     private javax.swing.JTextField varSexo;
     private javax.swing.JTextField varTitulo;

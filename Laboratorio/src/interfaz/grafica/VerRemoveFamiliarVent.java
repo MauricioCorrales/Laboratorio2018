@@ -31,7 +31,7 @@ public class VerRemoveFamiliarVent extends javax.swing.JInternalFrame {
         int numAf = Integer.parseInt(numAfil);
         Afiliado afi = emp.buscarAf(numAf);
         for(int i = 0; i < afi.getFlia().size(); i++){
-            listFlia.add(afi.getFlia().get(i).getNombre());
+            listFlia.add(afi.getFlia().get(i).getNombre() + " " + afi.getFlia().get(i).getApellido());
         }
     }
     /**
@@ -206,7 +206,7 @@ public class VerRemoveFamiliarVent extends javax.swing.JInternalFrame {
         String numAf2 = String.valueOf(afil.getNumAfiliado());
         ModificarFamiliar ventana = new ModificarFamiliar(emp, numAf2, afil.getFlia().get(listFlia.getSelectedIndex()).getDni());
         desktopPane.add(ventana);
-        Dimension desktopSize = ventana.getSize();
+        Dimension desktopSize = desktopPane.getSize();
         Dimension FrameSize = ventana.getSize();
         ventana.setLocation (((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
         ventana.show();

@@ -55,8 +55,6 @@ public class ModificarFamiliar extends javax.swing.JInternalFrame {
         varApellido = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        varDni = new javax.swing.JTextField();
-        varEdad = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         varDomicilio = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -67,6 +65,8 @@ public class ModificarFamiliar extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         varNombre = new javax.swing.JTextField();
         varSexo = new javax.swing.JTextField();
+        varDni = new javax.swing.JFormattedTextField();
+        varEdad = new javax.swing.JFormattedTextField();
 
         setClosable(true);
 
@@ -77,15 +77,6 @@ public class ModificarFamiliar extends javax.swing.JInternalFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Domicilio:");
-
-        varDni.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        varDni.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                varDniActionPerformed(evt);
-            }
-        });
-
-        varEdad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Nº Documento:");
@@ -121,6 +112,38 @@ public class ModificarFamiliar extends javax.swing.JInternalFrame {
         });
 
         varSexo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        varDni.setFormatterFactory(new javax.swing.JFormattedTextField.AbstractFormatterFactory(){
+            public javax.swing.JFormattedTextField.AbstractFormatter
+            getFormatter(javax.swing.JFormattedTextField tf){
+                try{
+                    return new javax.swing.text.MaskFormatter("##.###.###");
+                } catch (java.text.ParseException pe){
+                    pe.printStackTrace(); 
+                }
+                return null;
+            }
+        });
+        varDni.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        varEdad.setFormatterFactory(new javax.swing.JFormattedTextField.AbstractFormatterFactory(){
+            public javax.swing.JFormattedTextField.AbstractFormatter
+            getFormatter(javax.swing.JFormattedTextField tf){
+                try{
+                    return new javax.swing.text.MaskFormatter("##");
+                } catch (java.text.ParseException pe){
+                    pe.printStackTrace(); 
+                }
+                return null;
+            }
+        });
+        varEdad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        varEdad.setToolTipText("");
+        varEdad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                varEdadActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -160,7 +183,7 @@ public class ModificarFamiliar extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(varEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(varEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -196,27 +219,31 @@ public class ModificarFamiliar extends javax.swing.JInternalFrame {
                     .addComponent(varTipoFamiliar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(buttonModificar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void varDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varDniActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_varDniActionPerformed
-
     private void buttonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificarActionPerformed
         emp.eliminarFlia(numAf1, dni1);
         int edad = Integer.parseInt(varEdad.getText());
-        Familiar flia = new Familiar(varNombre.getText(), varApellido.getText(), edad, varSexo.getText(), varDni.getText(), varDomicilio.getText(), varTipoFamiliar.getText());
-        emp.addFamilia(numAf1, flia);
-        JOptionPane.showMessageDialog(null, "Familiar modificado con Exito!!");
+        if(emp.validarDni(varDni.getText())){
+            Familiar flia = new Familiar(varNombre.getText(), varApellido.getText(), edad, varSexo.getText(), varDni.getText(), varDomicilio.getText(), varTipoFamiliar.getText());
+            emp.addFamilia(numAf1, flia);
+            JOptionPane.showMessageDialog(null, "Familiar modificado con Exito!!");
+        }else{
+            JOptionPane.showMessageDialog(null, "Nº Documento ya existe o no fue ingresado");
+        }
     }//GEN-LAST:event_buttonModificarActionPerformed
 
     private void varNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_varNombreActionPerformed
+
+    private void varEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varEdadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_varEdadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -229,9 +256,9 @@ public class ModificarFamiliar extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField varApellido;
-    private javax.swing.JTextField varDni;
+    private javax.swing.JFormattedTextField varDni;
     private javax.swing.JTextField varDomicilio;
-    private javax.swing.JTextField varEdad;
+    private javax.swing.JFormattedTextField varEdad;
     private javax.swing.JTextField varNombre;
     private javax.swing.JTextField varSexo;
     private javax.swing.JTextField varTipoFamiliar;

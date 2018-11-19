@@ -39,17 +39,17 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
         labelDni = new javax.swing.JLabel();
         varNombre = new javax.swing.JTextField();
         varApellido = new javax.swing.JTextField();
-        varDni = new javax.swing.JTextField();
         buttonGrabar = new javax.swing.JButton();
         labelEdad = new javax.swing.JLabel();
         labelSexo = new javax.swing.JLabel();
         labelTitulo = new javax.swing.JLabel();
-        varEdad = new javax.swing.JTextField();
         varTitulo = new javax.swing.JTextField();
         radButtonHombre = new javax.swing.JRadioButton();
         radButtonMujer = new javax.swing.JRadioButton();
         labelDomicilio = new javax.swing.JLabel();
         varDomicilio = new javax.swing.JTextField();
+        varEdad = new javax.swing.JFormattedTextField();
+        varDni = new javax.swing.JFormattedTextField();
 
         setClosable(true);
 
@@ -76,13 +76,6 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
 
         varApellido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        varDni.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        varDni.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                varDniActionPerformed(evt);
-            }
-        });
-
         buttonGrabar.setText("Grabar");
         buttonGrabar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,8 +92,6 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
         labelTitulo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         labelTitulo.setText("Titulo:");
 
-        varEdad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
         varTitulo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         varTitulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,6 +106,38 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
         labelDomicilio.setText("Domicilio:");
 
         varDomicilio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        varEdad.setFormatterFactory(new javax.swing.JFormattedTextField.AbstractFormatterFactory(){
+            public javax.swing.JFormattedTextField.AbstractFormatter
+            getFormatter(javax.swing.JFormattedTextField tf){
+                try{
+                    return new javax.swing.text.MaskFormatter("##");
+                } catch (java.text.ParseException pe){
+                    pe.printStackTrace(); 
+                }
+                return null;
+            }
+        });
+        varEdad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        varEdad.setToolTipText("");
+        varEdad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                varEdadActionPerformed(evt);
+            }
+        });
+
+        varDni.setFormatterFactory(new javax.swing.JFormattedTextField.AbstractFormatterFactory(){
+            public javax.swing.JFormattedTextField.AbstractFormatter
+            getFormatter(javax.swing.JFormattedTextField tf){
+                try{
+                    return new javax.swing.text.MaskFormatter("##.###.###");
+                } catch (java.text.ParseException pe){
+                    pe.printStackTrace(); 
+                }
+                return null;
+            }
+        });
+        varDni.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,7 +162,7 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(labelDni)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(varDni, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(varDni, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(labelNombre)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,7 +170,7 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(labelEdad)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(varEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(varEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(labelTitulo)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -187,7 +210,7 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelDni)
                     .addComponent(varDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelEdad)
                     .addComponent(varEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -210,7 +233,7 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelDomicilio)
                             .addComponent(varDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(27, Short.MAX_VALUE))))
+                        .addContainerGap(34, Short.MAX_VALUE))))
         );
 
         pack();
@@ -219,10 +242,6 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
     private void varNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_varNombreActionPerformed
-
-    private void varDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varDniActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_varDniActionPerformed
 
     private void buttonGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrabarActionPerformed
         String tipo = null;
@@ -243,25 +262,32 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
                 tipo = "Administrativo";
                 break;
             case 1:
-                tipo = "Emfermero";
+                tipo = "Enfermero";
                 break;
             case 2:
                 tipo = "Doctor";
                 break;
             case 3:
-                tipo = "chofer";
+                tipo = "Chofer";
                 break;
             default:
                 break;
         }
-        Empleado empleado = new Empleado(varNombre.getText(), varApellido.getText(), edad, sexo, varDni.getText(), varDomicilio.getText(), varTitulo.getText(), tipo);
-        emp.addEmpleado(empleado);
-        JOptionPane.showMessageDialog(this, "Empleado Agregado con Exito!!");
+        if(emp.validarDni(varDni.getText())){
+            Empleado empleado = new Empleado(varNombre.getText(), varApellido.getText(), edad, sexo, varDni.getText(), varDomicilio.getText(), varTitulo.getText(), tipo);
+            emp.addEmpleado(empleado);
+            JOptionPane.showMessageDialog(this, "Empleado Agregado con Exito!!");
+        }else
+            JOptionPane.showMessageDialog(null, "Nº Documento ya existe o no fue ingresado");
     }//GEN-LAST:event_buttonGrabarActionPerformed
 
     private void varTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varTituloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_varTituloActionPerformed
+
+    private void varEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varEdadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_varEdadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -278,9 +304,9 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton radButtonHombre;
     private javax.swing.JRadioButton radButtonMujer;
     private javax.swing.JTextField varApellido;
-    private javax.swing.JTextField varDni;
+    private javax.swing.JFormattedTextField varDni;
     private javax.swing.JTextField varDomicilio;
-    private javax.swing.JTextField varEdad;
+    private javax.swing.JFormattedTextField varEdad;
     private javax.swing.JTextField varNombre;
     private javax.swing.JTextField varTitulo;
     // End of variables declaration//GEN-END:variables

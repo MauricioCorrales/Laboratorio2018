@@ -10,16 +10,17 @@ package laboratorio;
  * @author Marcelo
  */
 public class Pago {
-    private float abonoAfiliado = 300;
-    private float abonoFamiliar = 120;
+    private final float abonoAfiliado = 300;
+    private final float abonoFamiliar = 120;
     private String fechaPago;
+    private int cuota;
     
     public Pago(){
-        
     }
     
-    public Pago(String fecha){
+    public Pago(String fecha, int cuota){
         this.fechaPago = fecha;
+        this.cuota=cuota;
     }
 
     public String getFechaPago() {
@@ -30,19 +31,19 @@ public class Pago {
         this.fechaPago = fechaPago;
     }
 
+    public int getCuota() {
+        return cuota;
+    }
+
+    public void setCuota(int cuota) {
+        this.cuota = cuota;
+    }
+
     public float getAbonoAfiliado() {
         return abonoAfiliado;
     }
 
-    public void setAbonoAfiliado(float abonoAfiliado) {
-        this.abonoAfiliado = abonoAfiliado;
-    }
-
     public float getAbonoFamiliar() {
         return abonoFamiliar;
-    }
-
-    public void setAbonoFamiliar(float abonoFamiliar) {
-        this.abonoFamiliar = abonoFamiliar;
     }
 }
