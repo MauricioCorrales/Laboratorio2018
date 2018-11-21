@@ -5,6 +5,7 @@
  */
 package interfaz.grafica;
 
+import Exception.ComprobarDocumentoException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import laboratorio.Empresa;
@@ -257,6 +258,7 @@ public class FamiliarVent extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_varNombreActionPerformed
 
     private void buttonGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrabarActionPerformed
+        try{
         String sexo = null;
         if(radButtonHombre.isSelected()){
             sexo = "Hombre";
@@ -265,9 +267,7 @@ public class FamiliarVent extends javax.swing.JInternalFrame {
             if(radButtonMujer.isSelected()){
                 sexo = "Mujer";
             }
-            else{
-                System.out.println("AfiliadoVent 241\nsexo no seleccionado");
-            }
+           
         }
         int numAf = Integer.parseInt(labelNumAfil.getText());
         int edad = Integer.parseInt(varEdad.getText());
@@ -275,11 +275,19 @@ public class FamiliarVent extends javax.swing.JInternalFrame {
             Familiar flia = new Familiar(varNombre.getText(), varApellido.getText(), edad, sexo, varDni.getText(), varDomicilio.getText(), varTipoFamiliar.getText());
             if(emp.addFamilia(numAf, flia) == 1){
                 JOptionPane.showMessageDialog(null, "Familiar agregado con exito!!");
-            }else{
+            }/*else{
                 JOptionPane.showMessageDialog(null, "Error");
             }
         }else
             JOptionPane.showMessageDialog(null, "Nº Documento ya existe o no fue ingresado");
+     */}     
+       } catch (ComprobarDocumentoException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null, "ERROR: "+e.getMessage());
+        }catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "ERROR: Faltaron ingresar datos");
+        }
     }//GEN-LAST:event_buttonGrabarActionPerformed
 
     private void radButtonHombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radButtonHombreActionPerformed

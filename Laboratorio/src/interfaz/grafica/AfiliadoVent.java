@@ -5,6 +5,7 @@
  */
 package interfaz.grafica;
 
+import Exception.ComprobarDocumentoException;
 import laboratorio.*;
 import javax.swing.JOptionPane;
 /**
@@ -241,6 +242,7 @@ public class AfiliadoVent extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_varNombreActionPerformed
 
     private void buttonGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrabarActionPerformed
+       try{
         String sexo = null;
         if(radButtonHombre.isSelected()){
             sexo = "Hombre";
@@ -249,9 +251,7 @@ public class AfiliadoVent extends javax.swing.JInternalFrame {
             if(radButtonMujer.isSelected()){
                 sexo = "Mujer";
             }
-            else{
-                System.out.println("AfiliadoVent 241\nsexo no seleccionado");
-            }
+            
         }
         int numAf = Integer.parseInt(varNumAfil.getText());
         int edad = Integer.parseInt(varEdad.getText());
@@ -259,9 +259,15 @@ public class AfiliadoVent extends javax.swing.JInternalFrame {
             Afiliado af = new Afiliado(varNombre.getText(), varApeliido.getText(), edad, sexo, varDni.getText(), varDomicilio.getText(), numAf);
             emp.addAfiliado(af);
             JOptionPane.showMessageDialog(null, "Afiliado agregado con exito!!");
-        }else{
-            JOptionPane.showMessageDialog(null, "Nº Documento ya existe o no fue ingresado");
+        } 
+       } catch (ComprobarDocumentoException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null, "ERROR: "+e.getMessage());
+        }catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "ERROR: Faltaron ingresar datos");
         }
+       
     }//GEN-LAST:event_buttonGrabarActionPerformed
 
     private void varEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varEdadActionPerformed

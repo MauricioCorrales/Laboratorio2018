@@ -36,6 +36,10 @@ public class RegistroSolicitud {
         this.fecha = fecha;
         this.numSoli = numSoli;
     }
+    
+    public void addregRes(RegistroResultado regRes){
+        this.regRes=regRes;
+    }
 
     public String getAfiliado() {
         return afiliado;

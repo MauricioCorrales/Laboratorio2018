@@ -24,7 +24,18 @@ public class VerRemoveFamiliarVent extends javax.swing.JInternalFrame {
         this.emp = empr;
         initComponents();
         armarList(numAfil);
+        bloquear();
     }
+    
+    public void bloquear(){
+        buttonModificar.setEnabled(false);
+        buttonEliminar.setEnabled(false);
+    }
+    public void desbloquear(){
+        buttonModificar.setEnabled(true);
+        buttonEliminar.setEnabled(true);
+    }
+
 
     public void armarList(String numAfil){
         labelNumAfil.setText(numAfil);
@@ -181,6 +192,7 @@ public class VerRemoveFamiliarVent extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminarActionPerformed
+        try{
         int numAf = Integer.parseInt(labelNumAfil.getText());
         Afiliado afi = emp.buscarAf(numAf);
         if(emp.eliminarFlia(numAf, afi.getFlia().get(listFlia.getSelectedIndex()).getDni())){
@@ -188,21 +200,33 @@ public class VerRemoveFamiliarVent extends javax.swing.JInternalFrame {
             textPane.setText("");
             listFlia.clear();
             armarList(labelNumAfil.getText());
-        }else{
-            JOptionPane.showMessageDialog(this, "Error al eliminar familiar");
+            bloquear();
+        }}
+        catch (NumberFormatException e){
+           
+            JOptionPane.showMessageDialog(null,"Error: Primero debe seleccionar un familiar");
+        }
+        catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null,"Error: Primero debe elegir el Familiar");
         }
     }//GEN-LAST:event_buttonEliminarActionPerformed
 
     private void listFliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listFliaActionPerformed
+        desbloquear();
         int numAf = Integer.parseInt(labelNumAfil.getText());
         Afiliado afi = emp.buscarAf(numAf);
         String edad = String.valueOf(afi.getFlia().get(listFlia.getSelectedIndex()).getEdad());
         textPane.setText("Tipo de Familiar: " + afi.getFlia().get(listFlia.getSelectedIndex()).getTipoFamiliar() + "\nNombre: " + afi.getFlia().get(listFlia.getSelectedIndex()).getNombre() + "\nApellido: " + afi.getFlia().get(listFlia.getSelectedIndex()).getApellido() + "\nNº Documento: " + afi.getFlia().get(listFlia.getSelectedIndex()).getDni() + "\nEdad: " + edad + "\nSexo: " + afi.getFlia().get(listFlia.getSelectedIndex()).getSexo() + "\nDomicilio: " + afi.getFlia().get(listFlia.getSelectedIndex()).getDomicilio());
+        
     }//GEN-LAST:event_listFliaActionPerformed
 
     private void buttonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificarActionPerformed
+        
+
+        
         int numAf = Integer.parseInt(labelNumAfil.getText());
         Afiliado afil = emp.buscarAf(numAf);
+        if(!(listFlia == null)){
         String numAf2 = String.valueOf(afil.getNumAfiliado());
         ModificarFamiliar ventana = new ModificarFamiliar(emp, numAf2, afil.getFlia().get(listFlia.getSelectedIndex()).getDni());
         desktopPane.add(ventana);
@@ -210,12 +234,17 @@ public class VerRemoveFamiliarVent extends javax.swing.JInternalFrame {
         Dimension FrameSize = ventana.getSize();
         ventana.setLocation (((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
         ventana.show();
+        }else{
+                JOptionPane.showMessageDialog(null,"ERROR: Primero debe BUSCAR el Afiliado");
+            }
+        
     }//GEN-LAST:event_buttonModificarActionPerformed
 
     private void buttonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActualizarActionPerformed
         listFlia.clear();
         textPane.setText("");
         armarList(labelNumAfil.getText());
+        bloquear();
     }//GEN-LAST:event_buttonActualizarActionPerformed
 
 

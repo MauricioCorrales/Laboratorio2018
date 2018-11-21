@@ -1,7 +1,10 @@
 
 package interfaz.grafica;
 
-import java.time.LocalDate;
+import Exception.ComprobarAfiliadoException;
+import java.time.*;
+import java.time.format.*;
+
 import javax.swing.JOptionPane;
 import laboratorio.Afiliado;
 import laboratorio.Empresa;
@@ -14,8 +17,9 @@ public class PagoVent extends javax.swing.JInternalFrame {
 
     public PagoVent(Empresa emp) {
         this.emp = emp;
-        varFecha.setText(String.valueOf(fechaactual.getDayOfMonth()+"/"+fechaactual.getMonthValue()+"/"+fechaactual.getYear()));
+        
         initComponents();
+        varFecha.setText(String.valueOf(fechaactual.getDayOfMonth()+"/"+fechaactual.getMonthValue()+"/"+fechaactual.getYear()));
         cuotas();
     }
     
@@ -76,6 +80,7 @@ public class PagoVent extends javax.swing.JInternalFrame {
         });
 
         varFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        varFecha.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,23 +145,45 @@ public class PagoVent extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarActionPerformed
+        try{
         int numAf = Integer.parseInt(varNumAfil.getText());
+        emp.comprobarAfiliado(numAf);
         Afiliado afil = emp.buscarAf(numAf);
-        if(!(afil==null)){
+        
+        
             String pago = String.valueOf(emp.calcularpago(numAf));
             textPane.setText("Nombre: " + afil.getNombre() + "\nApellido: " + afil.getApellido() + "\nNº Documento: " + afil.getDni() + "\nMonto a pagar: $" + pago);
-        }else{
-            JOptionPane.showMessageDialog(this, "Afiliado no encontrado!!");
+        }catch (ComprobarAfiliadoException e){
+            JOptionPane.showMessageDialog(null,e.getMessage());
+        }catch (NumberFormatException e){
+           
+            JOptionPane.showMessageDialog(null,"Error: Campo vacío o el formato que intenta ingresar es incorrecto");
+        }catch (NullPointerException e){
+            
+            JOptionPane.showMessageDialog(null,"Error: No existe Afiliado con el número ingresado");
+        }
+        catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Error: "+ e.getMessage());
         }
     }//GEN-LAST:event_buttonBuscarActionPerformed
 
     private void buttonPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPagoActionPerformed
-        int numAf = Integer.parseInt(varNumAfil.getText());
+        try{
+         int numAf = Integer.parseInt(varNumAfil.getText());
+        
         Pago pago = new Pago(varFecha.getText(), cbCuotas.getSelectedIndex());
         if(emp.addPago(pago, numAf)){
             JOptionPane.showMessageDialog(this, "Pago realizado con Exito!!");
         }else{
-            JOptionPane.showMessageDialog(this, "Error al realizar el pago");
+                JOptionPane.showMessageDialog(null,"ERROR: Cuota pagada");
+            }
+        }
+        catch (NumberFormatException e){
+           
+            JOptionPane.showMessageDialog(null,"Error: No ingreso ningún dato, recuerdo que primero debe BUSCAR el Afiliado");
+        }
+        catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null,"Error: Primero debe buscar el Afiliado");
         }
     }//GEN-LAST:event_buttonPagoActionPerformed
 

@@ -5,6 +5,7 @@
  */
 package interfaz.grafica;
 
+import javax.swing.JOptionPane;
 import laboratorio.Empresa;
 import laboratorio.RegistroResultado;
 import laboratorio.RegistroSolicitud;
@@ -113,14 +114,22 @@ public class ResultadoVent extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String diag = textPaneDiag.getText();
-        String trat = textPaneTra.getText();
-        int numSoli = Integer.parseInt(varSoli.getText());
-        RegistroSolicitud regSol = emp.buscarSoli(numSoli);
-        RegistroResultado regRes = new RegistroResultado(trat, diag);
-        regSol.setRegRes(regRes);
-        emp.eliminarSoli(numSoli);
-        emp.addSoli(numSoli, regSol);
+        try{
+            String diag = textPaneDiag.getText();
+            String trat = textPaneTra.getText();
+            int numSoli = Integer.parseInt(varSoli.getText());
+            RegistroResultado regRes2 = new RegistroResultado(trat, diag);
+            RegistroSolicitud regSol2 = emp.buscarSoli(numSoli);
+            regSol2.addregRes(regRes2);
+            JOptionPane.showMessageDialog(this, "Se ah guardado el registro");
+        }
+        catch (NumberFormatException e){
+           
+            JOptionPane.showMessageDialog(null,"Error: No ingreso ningún dato, recuerdo que primero debe Agregar la SOLICITUD");
+        }
+        catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null,"Error: Primero debe crear la SOLICITUD");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

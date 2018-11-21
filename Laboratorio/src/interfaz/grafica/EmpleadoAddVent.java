@@ -5,6 +5,7 @@
  */
 package interfaz.grafica;
 
+import Exception.ComprobarDocumentoException;
 import javax.swing.JOptionPane;
 import laboratorio.Empleado;
 import laboratorio.Empresa;
@@ -100,8 +101,18 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
         });
 
         radButtonHombre.setText("Hombre");
+        radButtonHombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radButtonHombreActionPerformed(evt);
+            }
+        });
 
         radButtonMujer.setText("Mujer");
+        radButtonMujer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radButtonMujerActionPerformed(evt);
+            }
+        });
 
         labelDomicilio.setText("Domicilio:");
 
@@ -244,6 +255,7 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_varNombreActionPerformed
 
     private void buttonGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrabarActionPerformed
+        try{
         String tipo = null;
         String sexo = null;
         if(radButtonHombre.isSelected()){
@@ -252,9 +264,8 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
             if(radButtonMujer.isSelected()){
                 sexo = "Mujer";
             }
-            else{
-                JOptionPane.showMessageDialog(this, "Sexo no elegido");
-            }
+          
+            
         }
         int edad = Integer.parseInt(varEdad.getText());
         switch(cbEmpleado.getSelectedIndex()){
@@ -277,8 +288,14 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
             Empleado empleado = new Empleado(varNombre.getText(), varApellido.getText(), edad, sexo, varDni.getText(), varDomicilio.getText(), varTitulo.getText(), tipo);
             emp.addEmpleado(empleado);
             JOptionPane.showMessageDialog(this, "Empleado Agregado con Exito!!");
-        }else
-            JOptionPane.showMessageDialog(null, "Nº Documento ya existe o no fue ingresado");
+        }
+        } catch (ComprobarDocumentoException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null, "ERROR: "+e.getMessage());
+        }catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "ERROR: Faltaron ingresar datos");
+        }
     }//GEN-LAST:event_buttonGrabarActionPerformed
 
     private void varTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varTituloActionPerformed
@@ -288,6 +305,18 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
     private void varEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varEdadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_varEdadActionPerformed
+
+    private void radButtonHombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radButtonHombreActionPerformed
+        if(radButtonHombre.isSelected()){
+            radButtonMujer.setSelected(false);
+        }
+    }//GEN-LAST:event_radButtonHombreActionPerformed
+
+    private void radButtonMujerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radButtonMujerActionPerformed
+        if(radButtonMujer.isSelected()){
+            radButtonHombre.setSelected(false);
+        }
+    }//GEN-LAST:event_radButtonMujerActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

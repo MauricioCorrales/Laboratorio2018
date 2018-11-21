@@ -106,6 +106,11 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(menuEmpleados);
 
         menuMovil.setText("Movil");
+        menuMovil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuMovilActionPerformed(evt);
+            }
+        });
 
         menuItemAddMovil.setText("Agregar");
         menuItemAddMovil.addActionListener(new java.awt.event.ActionListener() {
@@ -232,6 +237,7 @@ public class Principal extends javax.swing.JFrame {
         Dimension FrameSize = ventana.getSize();
         ventana.setLocation (((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
         ventana.show();
+        
     }//GEN-LAST:event_menuItemVerMovilActionPerformed
 
     private void menuItemPagoAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPagoAddActionPerformed
@@ -260,6 +266,10 @@ public class Principal extends javax.swing.JFrame {
         ventana.setLocation (((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
         ventana.show();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void menuMovilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMovilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuMovilActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,7 +5,10 @@
  */
 package interfaz.grafica;
 
+import Exception.ComprobarAfiliadoException;
+import Exception.CustomException;
 import java.awt.Dimension;
+import javax.swing.JOptionPane;
 import laboratorio.Afiliado;
 import laboratorio.Persona;
 import laboratorio.Empresa;
@@ -277,9 +280,12 @@ public class VerRemoveAfiliadoVent extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarActionPerformed
+        
+        try{
         int numAf = Integer.parseInt(varNumAfil.getText());
+        emp.comprobarAfiliado(numAf);
         Persona afi = emp.buscarAf(numAf);
-        if(!(afi==null)){
+        
             labelNombre3.setText(afi.getNombre());
             labelApellido3.setText(afi.getApellido());
             labelDni3.setText(afi.getDni());
@@ -287,7 +293,13 @@ public class VerRemoveAfiliadoVent extends javax.swing.JInternalFrame {
             labelEdad3.setText(edad);
             labelSexo3.setText(afi.getSexo());
             labelDomicilio3.setText(afi.getDomicilio());
-        }else{
+        
+        }catch (ComprobarAfiliadoException e){
+            JOptionPane.showMessageDialog(null,e.getMessage());
+        }catch (NumberFormatException e){
+           
+            JOptionPane.showMessageDialog(null,"Error: Campo vacío o el formato que intenta ingresar es incorrecto");
+        }catch (NullPointerException e){
             labelNombre3.setText("");
             labelApellido3.setText("");
             labelDni3.setText("");
@@ -295,12 +307,15 @@ public class VerRemoveAfiliadoVent extends javax.swing.JInternalFrame {
             labelEdad3.setText("");
             labelSexo3.setText("");
             labelDomicilio3.setText("");
-            System.out.println("Afiliado no encontrado (198 VerAfiliaVent)");
+            JOptionPane.showMessageDialog(null,"Error: No existe Afiliado con el número ingresado");
+        }
+        catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Error: "+ e.getMessage());
         }
     }//GEN-LAST:event_buttonBuscarActionPerformed
 
     private void buttonGrupoFliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrupoFliaActionPerformed
-        if(!varNumAfil.getText().equals("")){
+        try{
             int numAf = Integer.parseInt(varNumAfil.getText());
             Persona afi = emp.buscarAf(numAf);
             if(!(afi == null)){
@@ -311,15 +326,20 @@ public class VerRemoveAfiliadoVent extends javax.swing.JInternalFrame {
                 ventana.setLocation(((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
                 ventana.show();
             }else{
-                System.out.println("El numero de afiliado no esta registrado");
+                JOptionPane.showMessageDialog(null,"ERROR: Primero debe BUSCAR el Afiliado");
             }
-        }else{
-            System.out.println("Numero de Afiliado no asignado");
+        }
+        catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(null,"Error: No ingreso ningún dato, recuerdo que primero debe BUSCAR el Afiliado");
+        }
+        catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null,"Error: Primero debe buscar el Afiliado");
         }
     }//GEN-LAST:event_buttonGrupoFliaActionPerformed
 
     private void buttonAddFliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddFliaActionPerformed
-        if(!varNumAfil.getText().equals("")){
+        try{
+        
             int numAf = Integer.parseInt(varNumAfil.getText());
             Persona afi = emp.buscarAf(numAf);
             if(!(afi == null)){
@@ -330,39 +350,70 @@ public class VerRemoveAfiliadoVent extends javax.swing.JInternalFrame {
                 ventana.setLocation(((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
                 ventana.show();
             }else{
-                System.out.println("El numero de afiliado no esta registrado");
+                JOptionPane.showMessageDialog(null,"ERROR: Primero debe BUSCAR el Afiliado");
             }
-        }else{
-            System.out.println("Numero de Afiliado no asignado");
+        }
+        catch (NumberFormatException e){
+           
+            JOptionPane.showMessageDialog(null,"Error: No ingreso ningún dato, recuerdo que primero debe BUSCAR el Afiliado");
+        }
+        catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null,"Error: Primero debe buscar el Afiliado");
         }
     }//GEN-LAST:event_buttonAddFliaActionPerformed
 
     private void buttonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminarActionPerformed
-        int numAf = Integer.parseInt(varNumAfil.getText());
-        if(emp.eliminarAf(numAf)){
-            System.out.println("Afiliado Eliminado con Exito");
-        }else{
-            System.out.println("Afiliado no Encontrado");
+        try{
+            int numAf = Integer.parseInt(varNumAfil.getText());
+
+            if(emp.eliminarAf(numAf)){
+                System.out.println("Afiliado Eliminado con Exito");
+            }else{
+                JOptionPane.showMessageDialog(null,"ERROR: Primero debe BUSCAR el Afiliado");
+            }
+        }catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(null,"Error: No ingreso ningún dato, recuerdo que primero debe BUSCAR el Afiliado");
+        }
+        catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null,"Error: Primero debe buscar el Afiliado");
         }
         
     }//GEN-LAST:event_buttonEliminarActionPerformed
 
     private void buttonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificarActionPerformed
+        try{
         ModificarAfiliado ventana = new ModificarAfiliado(emp, varNumAfil.getText());
         desktopPane.add(ventana);
         Dimension desktopSize = desktopPane.getSize();
         Dimension FrameSize = ventana.getSize();
         ventana.setLocation (((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
         ventana.show();
+        }catch (NumberFormatException e){
+           
+            JOptionPane.showMessageDialog(null,"Error: No ingreso ningún dato, recuerdo que primero debe buscar el Afiliado");
+        }
+        catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null,"Error: Primero debe buscar el Afiliado");
+        }
     }//GEN-LAST:event_buttonModificarActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        HistoriaClinicaVent ventana = new HistoriaClinicaVent(emp, varNumAfil.getText());
-        desktopPane.add(ventana);
-        Dimension desktopSize = desktopPane.getSize();
-        Dimension FrameSize = ventana.getSize();
-        ventana.setLocation (((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
-        ventana.show();
+        try{
+            HistoriaClinicaVent ventana = new HistoriaClinicaVent(emp, varNumAfil.getText());
+            desktopPane.add(ventana);
+            Dimension desktopSize = desktopPane.getSize();
+            Dimension FrameSize = ventana.getSize();
+            ventana.setLocation (((desktopSize.width - FrameSize.width)/2), ((desktopSize.height - FrameSize.height)/2));
+            ventana.show();
+        }catch (NumberFormatException e){
+           
+            JOptionPane.showMessageDialog(null,"Error: No ingreso ningún dato, recuerdo que primero debe BUSCAR el Afiliado");
+        }
+        catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null,"Error: Primero debe BUSCAR el Afiliado");
+        }catch(CustomException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
 

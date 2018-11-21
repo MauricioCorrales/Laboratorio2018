@@ -165,6 +165,7 @@
     <Component class="javax.swing.JTextField" name="varFecha">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
   </SubComponents>

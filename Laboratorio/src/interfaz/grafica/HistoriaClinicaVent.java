@@ -5,6 +5,7 @@
  */
 package interfaz.grafica;
 
+import Exception.CustomException;
 import laboratorio.Afiliado;
 import laboratorio.Empresa;
 
@@ -18,14 +19,17 @@ public class HistoriaClinicaVent extends javax.swing.JInternalFrame {
     /**
      * Creates new form HistoriaClinicaVent
      */
-    public HistoriaClinicaVent(Empresa emp, String numAf) {
+    public HistoriaClinicaVent(Empresa emp, String numAf)throws CustomException {
         this.emp=emp;
         initComponents();
-        armarList(numAf);
-        labelAfiliado.setText("Afiliado: " + numAf);
+        if(!numAf.equals("")){
+            labelAfiliado2.setText(numAf);
+            armarList(numAf);
+        }else
+            throw new CustomException("Numero de afiliado inexistente");
     }
 
-    public void armarList(String numAf1){
+    public void armarList(String numAf1)throws CustomException{ 
         int numAf = Integer.parseInt(numAf1);
         Afiliado afi = emp.buscarAf(numAf);
         for(int i=0;i<afi.getRegsol().size(); i++){
@@ -47,6 +51,7 @@ public class HistoriaClinicaVent extends javax.swing.JInternalFrame {
         textPaneRes = new javax.swing.JTextPane();
         jLabel2 = new javax.swing.JLabel();
         labelAfiliado = new javax.swing.JLabel();
+        labelAfiliado2 = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -71,27 +76,35 @@ public class HistoriaClinicaVent extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(listSoli, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 176, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(listSoli, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addComponent(labelAfiliado)))
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelAfiliado2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(0, 162, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addComponent(labelAfiliado)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(labelAfiliado)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(labelAfiliado))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelAfiliado2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -100,19 +113,27 @@ public class HistoriaClinicaVent extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1)
                     .addComponent(listSoli, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void listSoliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listSoliActionPerformed
-        int numAf = Integer.parseInt(labelAfiliado.getText());
+        int numAf = Integer.parseInt(labelAfiliado2.getText());
         Afiliado afi = emp.buscarAf(numAf);
         if(!afi.getRegsol().get(listSoli.getSelectedIndex()).getFamiliar().equals("")){
-            textPaneRes.setText("Nº Solicitud: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getNumSoli() + "\nDoctor: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getDoctor() + "\nEnfermero: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getEnfermero()+ "\nMovil: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getMovil() + "\nChofer: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getChofer() + "\nTipo: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getTipo() + "\nResultados: " + "\nDiagnostico: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getRegRes().getDiagnostico() + "\nTratamiento: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getRegRes().getTratamiento());
+            try{
+                textPaneRes.setText("Nº Solicitud: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getNumSoli() + "\nDoctor: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getDoctor() + "\nEnfermero: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getEnfermero()+ "\nMovil: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getMovil() + "\nChofer: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getChofer() + "\nTipo: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getTipo() + "\nResultados " + "\nDiagnostico: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getRegRes().getDiagnostico() + "\nTratamiento: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getRegRes().getTratamiento());
+            }catch(java.lang.NullPointerException e){
+                textPaneRes.setText("Nº Solicitud: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getNumSoli() + "\nDoctor: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getDoctor() + "\nEnfermero: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getEnfermero()+ "\nMovil: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getMovil() + "\nChofer: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getChofer() + "\nTipo: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getTipo() + "\nResultados " + "\nDiagnostico: " + "\nTratamiento: ");
+            }
         }else{
-            textPaneRes.setText("Nº Solicitud: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getNumSoli() + "\nFamiliar: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getFamiliar()+ "\nDoctor: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getDoctor() + "\nEnfermero: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getEnfermero()+ "\nMovil: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getMovil() + "\nChofer: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getChofer() + "\nTipo: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getTipo() + "\nResultados: " + "\nDiagnostico: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getRegRes().getDiagnostico() + "\nTratamiento: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getRegRes().getTratamiento());
+            try{
+                textPaneRes.setText("Nº Solicitud: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getNumSoli() + "\nFamiliar: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getFamiliar()+ "\nDoctor: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getDoctor() + "\nEnfermero: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getEnfermero()+ "\nMovil: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getMovil() + "\nChofer: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getChofer() + "\nTipo: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getTipo() + "\nResultados " + "\nDiagnostico: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getRegRes().getDiagnostico() + "\nTratamiento: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getRegRes().getTratamiento());
+            }catch(java.lang.NullPointerException e){
+                textPaneRes.setText("Nº Solicitud: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getNumSoli() + "\nFamiliar: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getFamiliar()+ "\nDoctor: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getDoctor() + "\nEnfermero: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getEnfermero()+ "\nMovil: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getMovil() + "\nChofer: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getChofer() + "\nTipo: " + afi.getRegsol().get(listSoli.getSelectedIndex()).getTipo() + "\nResultados " + "\nDiagnostico: " + "\nTratamiento: ");
+            }
         }
     }//GEN-LAST:event_listSoliActionPerformed
 
@@ -122,6 +143,7 @@ public class HistoriaClinicaVent extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelAfiliado;
+    private javax.swing.JLabel labelAfiliado2;
     private java.awt.List listSoli;
     private javax.swing.JTextPane textPaneRes;
     // End of variables declaration//GEN-END:variables

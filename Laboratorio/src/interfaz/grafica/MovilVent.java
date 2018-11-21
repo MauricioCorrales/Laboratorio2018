@@ -5,6 +5,8 @@
  */
 package interfaz.grafica;
 
+import Exception.CampoVaioMovilExcepcion;
+import Exception.ComprobarMovilExcepciom;
 import javax.swing.JOptionPane;
 import laboratorio.Empresa;
 import laboratorio.Movil;
@@ -163,9 +165,25 @@ public class MovilVent extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_varAñoActionPerformed
 
     private void buttonGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrabarActionPerformed
-        Movil mov = new Movil(varMarca.getText(), varModelo.getText(), varPatente.getText(), varAño.getText());
-        emp.addMovil(mov);
-        JOptionPane.showMessageDialog(null, "Movil agregado con Exito!!");
+        try{
+       
+            emp.comprobarCamposMovil(varMarca.getText(), varModelo.getText(), varAño.getText());
+            if(emp.comprobarMovil(varPatente.getText())){ 
+            Movil mov = new Movil(varMarca.getText(), varModelo.getText(), varPatente.getText(), varAño.getText());
+            
+            emp.addMovil(mov);
+            JOptionPane.showMessageDialog(null, "Movil agregado con Exito!!");
+            }
+        } 
+        
+        catch (CampoVaioMovilExcepcion | ComprobarMovilExcepciom e){
+            JOptionPane.showMessageDialog (null, e.getMessage());
+        }catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null, "ERROR: "+e.getMessage());
+        }catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "ERROR: Faltaron ingresar datos");
+        }
+       
     }//GEN-LAST:event_buttonGrabarActionPerformed
 
     private void varPatenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varPatenteActionPerformed

@@ -6,3 +6,4 @@ public class Administrativos extends Empleado {
         super(nombre, apellido, edad, sexo, dni, domicilio, titulo, tipo);
     }
 }
+ 

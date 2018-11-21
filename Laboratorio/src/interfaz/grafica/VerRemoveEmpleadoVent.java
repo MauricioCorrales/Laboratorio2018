@@ -24,8 +24,17 @@ public class VerRemoveEmpleadoVent extends javax.swing.JInternalFrame {
         this.emp = emp;
         initComponents();
         armarList();
+       bloquear();
     }
     
+    public void bloquear(){
+        buttonModificar.setEnabled(false);
+        buttonEliminar.setEnabled(false);
+    }
+    public void desbloquear(){
+        buttonModificar.setEnabled(true);
+        buttonEliminar.setEnabled(true);
+    }
     public void armarList(){
         for(int i = 0; i < emp.getEmpleado().size(); i++){
             listEmpleado.add(emp.getEmpleado().get(i).getNombre() + " " + emp.getEmpleado().get(i).getApellido());
@@ -165,12 +174,14 @@ public class VerRemoveEmpleadoVent extends javax.swing.JInternalFrame {
             textPane.setText("");
             listEmpleado.clear();
             armarList();
+            bloquear();
         }else{
             JOptionPane.showMessageDialog(this, "Error al eliminar el Empleado");
         }
     }//GEN-LAST:event_buttonEliminarActionPerformed
 
     private void listEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listEmpleadoActionPerformed
+        desbloquear();
         String edad = String.valueOf(emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getEdad());
         textPane.setText("Categoria: " + emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getCategoria() + "\nNombre: " + emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getNombre() + "\nApellido: " + emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getApellido() + "\nNº Documento: " + emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getDni() + "\nEdad: " + edad + "\nSexo: " + emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getSexo() + "\nTitulo: " + emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getTitulo()+ "\nDomicilio: " + emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getDomicilio());
     }//GEN-LAST:event_listEmpleadoActionPerformed
@@ -188,6 +199,7 @@ public class VerRemoveEmpleadoVent extends javax.swing.JInternalFrame {
         listEmpleado.clear();
         textPane.setText("");
         armarList();
+        bloquear();
     }//GEN-LAST:event_buttonActualizarActionPerformed
 
 

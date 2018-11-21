@@ -13,8 +13,17 @@ public class VerRemoveMovilVent extends javax.swing.JInternalFrame {
         this.emp = emp;
         initComponents();
         armarList();
+        bloquear();
     }
     
+    public void bloquear(){
+        buttonModificar.setEnabled(false);
+        buttonEliminar.setEnabled(false);
+    }
+    public void desbloquear(){
+        buttonModificar.setEnabled(true);
+        buttonEliminar.setEnabled(true);
+    }
     public void armarList(){
         for(int i = 0; i < emp.getMovil().size(); i++){
             listMovil.add(emp.getMovil().get(i).getPatente());
@@ -159,14 +168,18 @@ public class VerRemoveMovilVent extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_buttonEliminarActionPerformed
 
     private void listMovilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listMovilActionPerformed
-        String edad = String.valueOf(emp.getEmpleado().get(listMovil.getSelectedIndex()).getEdad());
+        desbloquear();
         textPane.setText("Marca: " + emp.getMovil().get(listMovil.getSelectedIndex()).getMarca() + "\nModelo: " + emp.getMovil().get(listMovil.getSelectedIndex()).getModelo()+ "\nPatente: " + emp.getMovil().get(listMovil.getSelectedIndex()).getPatente()+ "\nAño: " + emp.getMovil().get(listMovil.getSelectedIndex()).getAño());
+        
+     
+                
     }//GEN-LAST:event_listMovilActionPerformed
 
     private void buttonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActualizarActionPerformed
         listMovil.clear();
         textPane.setText("");
         armarList();
+        bloquear();
     }//GEN-LAST:event_buttonActualizarActionPerformed
 
 

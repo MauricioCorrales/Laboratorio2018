@@ -249,11 +249,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Hombre"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radButtonHombreActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="radButtonMujer">
       <Properties>
         <Property name="text" type="java.lang.String" value="Mujer"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radButtonMujerActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="labelDomicilio">
       <Properties>

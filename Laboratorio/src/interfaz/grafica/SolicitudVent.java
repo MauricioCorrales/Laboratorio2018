@@ -3,6 +3,7 @@ package interfaz.grafica;
 
 import java.time.*;
 import java.time.format.*;
+import Exception.CustomException;
 import javax.swing.JOptionPane;
 import laboratorio.Empresa;
 import laboratorio.Fecha;
@@ -21,6 +22,9 @@ public class SolicitudVent extends javax.swing.JInternalFrame {
     }
     
     public void armarList(){
+        doc1.removeAllItems();doc.removeAllItems();af1.removeAllItems();af.removeAllItems();
+        fa.removeAllItems();mo.removeAllItems();mo1.removeAllItems();enf.removeAllItems();
+        enf1.removeAllItems();chof.removeAllItems();chof1.removeAllItems();
         doc1.addItem(null);doc.addItem(null);af1.addItem(null);af.addItem(null);fa.addItem(null);mo.addItem(null);
         mo1.addItem(null);enf.addItem(null);enf1.addItem(null);chof.addItem(null);chof1.addItem(null);
         for(int i=0;i<emp.getEmpleado().size();i++){
@@ -469,13 +473,22 @@ public class SolicitudVent extends javax.swing.JInternalFrame {
         try{
             int numAf = emp.getAfiliado().get(af1.getSelectedIndex()-1).getNumAfiliado();
             int mes = fechaactual.getMonthValue();
-            if(!emp.validarSoli(mes, numAf)){
+            if(emp.validarSoli(mes, numAf)){
+                for(int i=0;i<emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().size();i++){
+                    System.out.println("Aqui");
+                    fa.addItem(emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().get(i).getNombre()+" "+emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().get(i).getApellido());
+                }
+            }else{
                 JOptionPane.showMessageDialog(this,"Afiliado en mora", "ADVERTENCIA!!", 2);
+                for(int i=0;i<emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().size();i++){
+                    fa.addItem(emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().get(i).getNombre()+" "+emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().get(i).getApellido());
+                }
             }
-            for(int i=0;i<emp.getAfiliado().get(af.getSelectedIndex()-1).getFlia().size();i++){
-                fa.addItem(emp.getAfiliado().get(af.getSelectedIndex()-1).getFlia().get(i).getNombre()+" "+emp.getAfiliado().get(af.getSelectedIndex()-1).getFlia().get(i).getApellido());
-            }
-        }catch(java.lang.ArrayIndexOutOfBoundsException e){System.out.println("error");}
+        }catch(java.lang.ArrayIndexOutOfBoundsException e){
+            System.out.println("error");
+        }catch(CustomException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }//GEN-LAST:event_af1ActionPerformed
 
     private void varNumSoliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varNumSoliActionPerformed
@@ -514,6 +527,7 @@ public class SolicitudVent extends javax.swing.JInternalFrame {
                 emp.getAfiliado().get(af1.getSelectedIndex()-1).getRegsol().add(h);
                 emp.setX(emp.getX()+1);
                 JOptionPane.showMessageDialog(null, "Operacion realizada con exito");
+                armarList();
             }
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Error al ingresar o campo incompleto");
@@ -523,6 +537,8 @@ public class SolicitudVent extends javax.swing.JInternalFrame {
             docu.setText("");
             fechaNacimiento.setText("");
             combo.setSelectedItem("SELECCIONAR:");*/
+        }catch (Exception e){
+              JOptionPane.showMessageDialog(null, "Error al ingresar o campo incompleto");
         }
     }//GEN-LAST:event_guardar1ActionPerformed
 
@@ -553,6 +569,7 @@ public class SolicitudVent extends javax.swing.JInternalFrame {
                 emp.getAfiliado().get(af.getSelectedIndex()-1).getRegsol().add(h);
                 emp.setX(emp.getX()+1);
                 JOptionPane.showMessageDialog(null, "Operacion realizada con exito");
+                armarList();
             }
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Error al ingresar o campo incompleto");
@@ -562,6 +579,8 @@ public class SolicitudVent extends javax.swing.JInternalFrame {
             docu.setText("");
             fechaNacimiento.setText("");
             combo.setSelectedItem("SELECCIONAR:");*/
+        }catch (Exception e){
+              JOptionPane.showMessageDialog(null, "Error al ingresar o campo incompleto");
         }
     }//GEN-LAST:event_guardarActionPerformed
 
@@ -577,11 +596,14 @@ public class SolicitudVent extends javax.swing.JInternalFrame {
         try{
             int numAf = emp.getAfiliado().get(af.getSelectedIndex()-1).getNumAfiliado();
             int mes = fechaactual.getMonthValue();
-            if(!emp.validarSoli(mes, numAf)){
+            if(emp.validarSoli(mes, numAf)){   
+            }else{
                 JOptionPane.showMessageDialog(this,"Afiliado en mora", "ADVERTENCIA!!", 2);
             }
         }catch(java.lang.ArrayIndexOutOfBoundsException e){
             System.out.println("error");
+        }catch(CustomException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_afActionPerformed
 
