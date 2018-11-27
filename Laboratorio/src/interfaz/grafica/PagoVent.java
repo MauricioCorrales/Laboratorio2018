@@ -2,6 +2,7 @@
 package interfaz.grafica;
 
 import Exception.ComprobarAfiliadoException;
+import Exception.ComprobarPagoCuotaException;
 import java.time.*;
 import java.time.format.*;
 
@@ -147,44 +148,34 @@ public class PagoVent extends javax.swing.JInternalFrame {
     private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarActionPerformed
         try{
         int numAf = Integer.parseInt(varNumAfil.getText());
-        emp.comprobarAfiliado(numAf);
+        
         Afiliado afil = emp.buscarAf(numAf);
         
         
-            String pago = String.valueOf(emp.calcularpago(numAf));
-            textPane.setText("Nombre: " + afil.getNombre() + "\nApellido: " + afil.getApellido() + "\nNº Documento: " + afil.getDni() + "\nMonto a pagar: $" + pago);
+        String pago = String.valueOf(emp.calcularpago(numAf));
+        textPane.setText("Nombre: " + afil.getNombre() + "\nApellido: " + afil.getApellido() + "\nNº Documento: " + afil.getDni() + "\nMonto a pagar: $" + pago);
         }catch (ComprobarAfiliadoException e){
             JOptionPane.showMessageDialog(null,e.getMessage());
         }catch (NumberFormatException e){
            
-            JOptionPane.showMessageDialog(null,"Error: Campo vacío o el formato que intenta ingresar es incorrecto");
-        }catch (NullPointerException e){
-            
-            JOptionPane.showMessageDialog(null,"Error: No existe Afiliado con el número ingresado");
-        }
-        catch (Exception e){
-            JOptionPane.showMessageDialog(null,"Error: "+ e.getMessage());
-        }
-    }//GEN-LAST:event_buttonBuscarActionPerformed
-
-    private void buttonPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPagoActionPerformed
-        try{
-         int numAf = Integer.parseInt(varNumAfil.getText());
-        
-        Pago pago = new Pago(varFecha.getText(), cbCuotas.getSelectedIndex());
-        if(emp.addPago(pago, numAf)){
-            JOptionPane.showMessageDialog(this, "Pago realizado con Exito!!");
-        }else{
-                JOptionPane.showMessageDialog(null,"ERROR: Cuota pagada");
-            }
-        }
-        catch (NumberFormatException e){
-           
-            JOptionPane.showMessageDialog(null,"Error: No ingreso ningún dato, recuerdo que primero debe BUSCAR el Afiliado");
+            JOptionPane.showMessageDialog(null,"Error: No ingreso ningún dato, recuerdo que primero debe buscar el Afiliado");
         }
         catch (NullPointerException e){
             JOptionPane.showMessageDialog(null,"Error: Primero debe buscar el Afiliado");
         }
+    }//GEN-LAST:event_buttonBuscarActionPerformed
+
+    private void buttonPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPagoActionPerformed
+       try{
+           int numAf = Integer.parseInt(varNumAfil.getText());
+           Pago pago = new Pago(varFecha.getText(), cbCuotas.getSelectedIndex());
+           emp.addPago(pago, numAf);
+           JOptionPane.showMessageDialog(this, "Pago realizado con Exito!!");
+        }catch(ComprobarPagoCuotaException e){
+            JOptionPane.showMessageDialog(null,e.getMessage());
+        }catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(null,"Error: No ingreso ningún dato, recuerdo que primero debe buscar el Afiliado");
+        }                  
     }//GEN-LAST:event_buttonPagoActionPerformed
 
     private void cbCuotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCuotasActionPerformed

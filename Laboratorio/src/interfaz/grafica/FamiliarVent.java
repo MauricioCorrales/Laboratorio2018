@@ -259,28 +259,22 @@ public class FamiliarVent extends javax.swing.JInternalFrame {
 
     private void buttonGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrabarActionPerformed
         try{
-        String sexo = null;
-        if(radButtonHombre.isSelected()){
-            sexo = "Hombre";
-        }
-        else{
-            if(radButtonMujer.isSelected()){
-                sexo = "Mujer";
+            String sexo = null;
+            if(radButtonHombre.isSelected()){
+                sexo = "Hombre";
             }
-           
-        }
-        int numAf = Integer.parseInt(labelNumAfil.getText());
-        int edad = Integer.parseInt(varEdad.getText());
-        if(emp.validarDni(varDni.getText())){
+            else{
+                if(radButtonMujer.isSelected()){
+                    sexo = "Mujer";
+                }
+            }
+            int numAf = Integer.parseInt(labelNumAfil.getText());
+            int edad = Integer.parseInt(varEdad.getText());
+            emp.validarDni(varDni.getText());
             Familiar flia = new Familiar(varNombre.getText(), varApellido.getText(), edad, sexo, varDni.getText(), varDomicilio.getText(), varTipoFamiliar.getText());
             if(emp.addFamilia(numAf, flia) == 1){
                 JOptionPane.showMessageDialog(null, "Familiar agregado con exito!!");
-            }/*else{
-                JOptionPane.showMessageDialog(null, "Error");
-            }
-        }else
-            JOptionPane.showMessageDialog(null, "Nº Documento ya existe o no fue ingresado");
-     */}     
+            }    
        } catch (ComprobarDocumentoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }catch (NullPointerException e){

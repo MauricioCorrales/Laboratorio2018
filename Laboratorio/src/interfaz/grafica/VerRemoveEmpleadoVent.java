@@ -5,6 +5,7 @@
  */
 package interfaz.grafica;
 
+import Exception.CustomException;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import laboratorio.Empleado;
@@ -169,14 +170,15 @@ public class VerRemoveEmpleadoVent extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminarActionPerformed
-        if(emp.eliminarEmp(emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getDni())){
+        try{
+            emp.eliminarEmp(emp.getEmpleado().get(listEmpleado.getSelectedIndex()).getDni());
             JOptionPane.showMessageDialog(this, "Empleado eliminado con Exito!!");
             textPane.setText("");
             listEmpleado.clear();
             armarList();
             bloquear();
-        }else{
-            JOptionPane.showMessageDialog(this, "Error al eliminar el Empleado");
+        }catch(CustomException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_buttonEliminarActionPerformed
 

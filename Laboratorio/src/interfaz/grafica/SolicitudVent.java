@@ -473,21 +473,17 @@ public class SolicitudVent extends javax.swing.JInternalFrame {
         try{
             int numAf = emp.getAfiliado().get(af1.getSelectedIndex()-1).getNumAfiliado();
             int mes = fechaactual.getMonthValue();
-            if(emp.validarSoli(mes, numAf)){
-                for(int i=0;i<emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().size();i++){
-                    System.out.println("Aqui");
-                    fa.addItem(emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().get(i).getNombre()+" "+emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().get(i).getApellido());
-                }
-            }else{
-                JOptionPane.showMessageDialog(this,"Afiliado en mora", "ADVERTENCIA!!", 2);
-                for(int i=0;i<emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().size();i++){
-                    fa.addItem(emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().get(i).getNombre()+" "+emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().get(i).getApellido());
-                }
+            emp.validarSoli(mes, numAf);
+            for(int i=0;i<emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().size();i++){
+                fa.addItem(emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().get(i).getNombre()+" "+emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().get(i).getApellido());
             }
         }catch(java.lang.ArrayIndexOutOfBoundsException e){
             System.out.println("error");
         }catch(CustomException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage(), "ADVERTENCIA!!", 2);
+            for(int i=0;i<emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().size();i++){
+                fa.addItem(emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().get(i).getNombre()+" "+emp.getAfiliado().get(af1.getSelectedIndex()-1).getFlia().get(i).getApellido());
+            }
         }
     }//GEN-LAST:event_af1ActionPerformed
 
@@ -511,32 +507,25 @@ public class SolicitudVent extends javax.swing.JInternalFrame {
         try{
             int numAf = emp.getAfiliado().get(af1.getSelectedIndex()-1).getNumAfiliado();
             int mes = fechaactual.getMonthValue();
-            if(!emp.validarSoli(mes, numAf)){
-                JOptionPane.showMessageDialog(this,"Afiliado sleccionado en mora","ERROR", 2);
-            }else{
-                String af3 = (String)af1.getSelectedItem();
-                String fa3 = (String)fa.getSelectedItem();
-                String doc3 = (String)doc1.getSelectedItem();
-                String enf3 = (String)enf1.getSelectedItem();
-                String mo3 = (String)mo1.getSelectedItem();
-                String chof3 = (String)chof1.getSelectedItem();
-                int numSoli1 = Integer.parseInt(varNumSoli.getText());
-                Fecha f1 = new Fecha(fechaactual.getDayOfMonth(), fechaactual.getMonthValue(), fechaactual.getYear());
-                String ti = (String)tipo1.getSelectedItem();
-                RegistroSolicitud h = new RegistroSolicitud(af3, fa3, doc3, enf3, mo3, chof3, ti, f1, numSoli1);
-                emp.getAfiliado().get(af1.getSelectedIndex()-1).getRegsol().add(h);
-                emp.setX(emp.getX()+1);
-                JOptionPane.showMessageDialog(null, "Operacion realizada con exito");
-                armarList();
-            }
+            emp.validarSoli(mes, numAf);
+            String af3 = (String)af1.getSelectedItem();
+            String fa3 = (String)fa.getSelectedItem();
+            String doc3 = (String)doc1.getSelectedItem();
+            String enf3 = (String)enf1.getSelectedItem();
+            String mo3 = (String)mo1.getSelectedItem();
+            String chof3 = (String)chof1.getSelectedItem();
+            int numSoli1 = Integer.parseInt(varNumSoli.getText());
+            Fecha f1 = new Fecha(fechaactual.getDayOfMonth(), fechaactual.getMonthValue(), fechaactual.getYear());
+            String ti = (String)tipo1.getSelectedItem();
+            RegistroSolicitud h = new RegistroSolicitud(af3, fa3, doc3, enf3, mo3, chof3, ti, f1, numSoli1);
+            emp.getAfiliado().get(af1.getSelectedIndex()-1).getRegsol().add(h);
+            emp.setX(emp.getX()+1);
+            JOptionPane.showMessageDialog(null, "Operacion realizada con exito");
+            armarList();
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Error al ingresar o campo incompleto");
-            /*nombre.setText("");
-            apellido.setText("");
-            edad.setText("");
-            docu.setText("");
-            fechaNacimiento.setText("");
-            combo.setSelectedItem("SELECCIONAR:");*/
+        }catch(CustomException e){
+            JOptionPane.showMessageDialog(this,e.getMessage(),"ERROR", 2);
         }catch (Exception e){
               JOptionPane.showMessageDialog(null, "Error al ingresar o campo incompleto");
         }
@@ -554,31 +543,24 @@ public class SolicitudVent extends javax.swing.JInternalFrame {
         try{
             int numAf = emp.getAfiliado().get(af.getSelectedIndex()-1).getNumAfiliado();
             int mes = fechaactual.getMonthValue();
-            if(!emp.validarSoli(mes, numAf)){
-                JOptionPane.showMessageDialog(this,"Afiliado sleccionado en mora","ERROR", 2);
-            }else{
-                String af2 = (String)af.getSelectedItem();
-                String doc2 = (String)doc.getSelectedItem();
-                String enf2 = (String)enf.getSelectedItem();
-                String mo2 = (String)mo.getSelectedItem();
-                String chof2 = (String)chof.getSelectedItem();
-                int numSoli2 = Integer.parseInt(varNumSoli1.getText());
-                Fecha f2 = new Fecha(fechaactual.getDayOfMonth(), fechaactual.getMonthValue(), fechaactual.getYear());
-                String ti2 = (String)tipo.getSelectedItem();
-                RegistroSolicitud h = new RegistroSolicitud(af2, doc2, enf2, mo2, chof2, ti2, f2, numSoli2);
-                emp.getAfiliado().get(af.getSelectedIndex()-1).getRegsol().add(h);
-                emp.setX(emp.getX()+1);
-                JOptionPane.showMessageDialog(null, "Operacion realizada con exito");
-                armarList();
-            }
+            emp.validarSoli(mes, numAf);
+            String af2 = (String)af.getSelectedItem();
+            String doc2 = (String)doc.getSelectedItem();
+            String enf2 = (String)enf.getSelectedItem();
+            String mo2 = (String)mo.getSelectedItem();
+            String chof2 = (String)chof.getSelectedItem();
+            int numSoli2 = Integer.parseInt(varNumSoli1.getText());
+            Fecha f2 = new Fecha(fechaactual.getDayOfMonth(), fechaactual.getMonthValue(), fechaactual.getYear());
+            String ti2 = (String)tipo.getSelectedItem();
+            RegistroSolicitud h = new RegistroSolicitud(af2, doc2, enf2, mo2, chof2, ti2, f2, numSoli2);
+            emp.getAfiliado().get(af.getSelectedIndex()-1).getRegsol().add(h);
+            emp.setX(emp.getX()+1);
+            JOptionPane.showMessageDialog(null, "Operacion realizada con exito");
+            armarList();
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Error al ingresar o campo incompleto");
-            /*nombre.setText("");
-            apellido.setText("");
-            edad.setText("");
-            docu.setText("");
-            fechaNacimiento.setText("");
-            combo.setSelectedItem("SELECCIONAR:");*/
+        }catch(CustomException e){
+            JOptionPane.showMessageDialog(this,e.getMessage(),"ERROR", 2);
         }catch (Exception e){
               JOptionPane.showMessageDialog(null, "Error al ingresar o campo incompleto");
         }
@@ -596,14 +578,11 @@ public class SolicitudVent extends javax.swing.JInternalFrame {
         try{
             int numAf = emp.getAfiliado().get(af.getSelectedIndex()-1).getNumAfiliado();
             int mes = fechaactual.getMonthValue();
-            if(emp.validarSoli(mes, numAf)){   
-            }else{
-                JOptionPane.showMessageDialog(this,"Afiliado en mora", "ADVERTENCIA!!", 2);
-            }
+            emp.validarSoli(mes, numAf);
         }catch(java.lang.ArrayIndexOutOfBoundsException e){
             System.out.println("error");
         }catch(CustomException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage(), "ADVERTENCIA!!", 2);
         }
     }//GEN-LAST:event_afActionPerformed
 

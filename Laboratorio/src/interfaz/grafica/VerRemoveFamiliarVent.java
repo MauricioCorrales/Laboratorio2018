@@ -5,6 +5,7 @@
  */
 package interfaz.grafica;
 
+import Exception.CustomException;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import laboratorio.Afiliado;
@@ -193,21 +194,20 @@ public class VerRemoveFamiliarVent extends javax.swing.JInternalFrame {
 
     private void buttonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminarActionPerformed
         try{
-        int numAf = Integer.parseInt(labelNumAfil.getText());
-        Afiliado afi = emp.buscarAf(numAf);
-        if(emp.eliminarFlia(numAf, afi.getFlia().get(listFlia.getSelectedIndex()).getDni())){
+            int numAf = Integer.parseInt(labelNumAfil.getText());
+            Afiliado afi = emp.buscarAf(numAf);
+            emp.eliminarFlia(numAf, afi.getFlia().get(listFlia.getSelectedIndex()).getDni());
             JOptionPane.showMessageDialog(this, "Familiar eliminado con Exito!!");
             textPane.setText("");
             listFlia.clear();
             armarList(labelNumAfil.getText());
             bloquear();
-        }}
-        catch (NumberFormatException e){
-           
+        }catch (NumberFormatException e){
             JOptionPane.showMessageDialog(null,"Error: Primero debe seleccionar un familiar");
-        }
-        catch (NullPointerException e){
+        }catch (NullPointerException e){
             JOptionPane.showMessageDialog(null,"Error: Primero debe elegir el Familiar");
+        }catch(CustomException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_buttonEliminarActionPerformed
 

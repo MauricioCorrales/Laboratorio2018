@@ -1,6 +1,7 @@
 
 package interfaz.grafica;
 
+import Exception.CustomException;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import laboratorio.Empresa;
@@ -157,13 +158,14 @@ public class VerRemoveMovilVent extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_buttonModificarActionPerformed
 
     private void buttonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminarActionPerformed
-        int opcion = JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar el movil?", "", JOptionPane.YES_NO_OPTION);
-        if(JOptionPane.YES_OPTION==opcion){
-            if(emp.eliminarMovil(emp.getMovil().get(listMovil.getSelectedIndex()).getPatente())){
+        try{ 
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar el movil?", "", JOptionPane.YES_NO_OPTION);
+            if(JOptionPane.YES_OPTION==opcion){
+                emp.eliminarMovil(emp.getMovil().get(listMovil.getSelectedIndex()).getPatente());
                 JOptionPane.showMessageDialog(this, "Movil eliminado con Exito!!");
-            }else{
-                JOptionPane.showMessageDialog(this, "ERROR!!");
             }
+        }catch(CustomException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_buttonEliminarActionPerformed
 

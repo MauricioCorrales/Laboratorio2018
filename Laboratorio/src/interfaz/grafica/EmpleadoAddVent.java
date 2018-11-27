@@ -256,39 +256,36 @@ public class EmpleadoAddVent extends javax.swing.JInternalFrame {
 
     private void buttonGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrabarActionPerformed
         try{
-        String tipo = null;
-        String sexo = null;
-        if(radButtonHombre.isSelected()){
-            sexo = "Hombre";
-        }else{
-            if(radButtonMujer.isSelected()){
-                sexo = "Mujer";
+            String tipo = null;
+            String sexo = null;
+            if(radButtonHombre.isSelected()){
+                sexo = "Hombre";
+            }else{
+                if(radButtonMujer.isSelected()){
+                    sexo = "Mujer";
+                }
             }
-          
-            
-        }
-        int edad = Integer.parseInt(varEdad.getText());
-        switch(cbEmpleado.getSelectedIndex()){
-            case 0:
-                tipo = "Administrativo";
-                break;
-            case 1:
-                tipo = "Enfermero";
-                break;
-            case 2:
-                tipo = "Doctor";
-                break;
-            case 3:
-                tipo = "Chofer";
-                break;
-            default:
-                break;
-        }
-        if(emp.validarDni(varDni.getText())){
+            int edad = Integer.parseInt(varEdad.getText());
+            switch(cbEmpleado.getSelectedIndex()){
+                case 0:
+                    tipo = "Administrativo";
+                    break;
+                case 1:
+                    tipo = "Enfermero";
+                    break;
+                case 2:
+                    tipo = "Doctor";
+                    break;
+                case 3:
+                    tipo = "Chofer";
+                    break;
+                default:
+                    break;
+            }
+            emp.validarDni(varDni.getText());
             Empleado empleado = new Empleado(varNombre.getText(), varApellido.getText(), edad, sexo, varDni.getText(), varDomicilio.getText(), varTitulo.getText(), tipo);
             emp.addEmpleado(empleado);
             JOptionPane.showMessageDialog(this, "Empleado Agregado con Exito!!");
-        }
         } catch (ComprobarDocumentoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }catch (NullPointerException e){

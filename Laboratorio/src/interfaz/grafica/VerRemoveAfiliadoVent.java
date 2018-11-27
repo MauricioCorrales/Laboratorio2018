@@ -283,7 +283,7 @@ public class VerRemoveAfiliadoVent extends javax.swing.JInternalFrame {
         
         try{
         int numAf = Integer.parseInt(varNumAfil.getText());
-        emp.comprobarAfiliado(numAf);
+       
         Persona afi = emp.buscarAf(numAf);
         
             labelNombre3.setText(afi.getNombre());
@@ -294,24 +294,13 @@ public class VerRemoveAfiliadoVent extends javax.swing.JInternalFrame {
             labelSexo3.setText(afi.getSexo());
             labelDomicilio3.setText(afi.getDomicilio());
         
+        
         }catch (ComprobarAfiliadoException e){
             JOptionPane.showMessageDialog(null,e.getMessage());
         }catch (NumberFormatException e){
            
             JOptionPane.showMessageDialog(null,"Error: Campo vacío o el formato que intenta ingresar es incorrecto");
-        }catch (NullPointerException e){
-            labelNombre3.setText("");
-            labelApellido3.setText("");
-            labelDni3.setText("");
-            String edad = String.valueOf("");
-            labelEdad3.setText("");
-            labelSexo3.setText("");
-            labelDomicilio3.setText("");
-            JOptionPane.showMessageDialog(null,"Error: No existe Afiliado con el número ingresado");
-        }
-        catch (Exception e){
-            JOptionPane.showMessageDialog(null,"Error: "+ e.getMessage());
-        }
+        } 
     }//GEN-LAST:event_buttonBuscarActionPerformed
 
     private void buttonGrupoFliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrupoFliaActionPerformed
@@ -365,19 +354,16 @@ public class VerRemoveAfiliadoVent extends javax.swing.JInternalFrame {
     private void buttonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminarActionPerformed
         try{
             int numAf = Integer.parseInt(varNumAfil.getText());
-
-            if(emp.eliminarAf(numAf)){
-                System.out.println("Afiliado Eliminado con Exito");
-            }else{
-                JOptionPane.showMessageDialog(null,"ERROR: Primero debe BUSCAR el Afiliado");
-            }
+            emp.eliminarAf(numAf);
+            JOptionPane.showMessageDialog(null, "Afiliado Eliminado con Exito");
         }catch (NumberFormatException e){
             JOptionPane.showMessageDialog(null,"Error: No ingreso ningún dato, recuerdo que primero debe BUSCAR el Afiliado");
         }
         catch (NullPointerException e){
             JOptionPane.showMessageDialog(null,"Error: Primero debe buscar el Afiliado");
+        }catch(CustomException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        
     }//GEN-LAST:event_buttonEliminarActionPerformed
 
     private void buttonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificarActionPerformed

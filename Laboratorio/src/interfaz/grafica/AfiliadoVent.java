@@ -242,32 +242,30 @@ public class AfiliadoVent extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_varNombreActionPerformed
 
     private void buttonGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrabarActionPerformed
-       try{
-        String sexo = null;
-        if(radButtonHombre.isSelected()){
-            sexo = "Hombre";
-        }
-        else{
-            if(radButtonMujer.isSelected()){
-                sexo = "Mujer";
+        try{
+            String sexo = null;
+            if(radButtonHombre.isSelected()){
+                sexo = "Hombre";
             }
-            
-        }
-        int numAf = Integer.parseInt(varNumAfil.getText());
-        int edad = Integer.parseInt(varEdad.getText());
-        if(emp.validarDni(varDni.getText())){
+            else{
+                if(radButtonMujer.isSelected()){
+                    sexo = "Mujer";
+                }
+
+            }
+            int numAf = Integer.parseInt(varNumAfil.getText());
+            int edad = Integer.parseInt(varEdad.getText());
+            emp.validarDni(varDni.getText());
             Afiliado af = new Afiliado(varNombre.getText(), varApeliido.getText(), edad, sexo, varDni.getText(), varDomicilio.getText(), numAf);
             emp.addAfiliado(af);
-            JOptionPane.showMessageDialog(null, "Afiliado agregado con exito!!");
-        } 
-       } catch (ComprobarDocumentoException e){
+            JOptionPane.showMessageDialog(null, "Afiliado agregado con exito!!"); 
+        }catch (ComprobarDocumentoException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }catch (NullPointerException e){
             JOptionPane.showMessageDialog(null, "ERROR: "+e.getMessage());
         }catch (NumberFormatException e){
             JOptionPane.showMessageDialog(null, "ERROR: Faltaron ingresar datos");
         }
-       
     }//GEN-LAST:event_buttonGrabarActionPerformed
 
     private void varEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varEdadActionPerformed

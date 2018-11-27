@@ -168,12 +168,10 @@ public class MovilVent extends javax.swing.JInternalFrame {
         try{
        
             emp.comprobarCamposMovil(varMarca.getText(), varModelo.getText(), varAño.getText());
-            if(emp.comprobarMovil(varPatente.getText())){ 
+            emp.comprobarMovil(varPatente.getText());
             Movil mov = new Movil(varMarca.getText(), varModelo.getText(), varPatente.getText(), varAño.getText());
-            
             emp.addMovil(mov);
             JOptionPane.showMessageDialog(null, "Movil agregado con Exito!!");
-            }
         } 
         
         catch (CampoVaioMovilExcepcion | ComprobarMovilExcepciom e){

@@ -5,6 +5,8 @@
  */
 package interfaz.grafica;
 
+import Exception.ComprobarDocumentoException;
+import Exception.CustomException;
 import javax.swing.JOptionPane;
 import laboratorio.Empleado;
 import laboratorio.Empresa;
@@ -244,14 +246,17 @@ public class ModificarEmpleado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_varTituloActionPerformed
 
     private void buttonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificarActionPerformed
-        emp.eliminarEmp(dni1);
-        int edad = Integer.parseInt(varEdad.getText());
-        if(emp.validarDni(varDni.getText())){
+        try{    
+            emp.eliminarEmp(dni1);
+            int edad = Integer.parseInt(varEdad.getText());
+            emp.validarDni(varDni.getText());
             Empleado empleado = new Empleado(varNombre.getText(), varApellido.getText(), edad, varSexo.getText(), varDni.getText(), varDomicilio.getText(), varTitulo.getText(), varCategoria.getText());
             emp.addEmpleado(empleado);
             JOptionPane.showMessageDialog(null, "Empleado modificado con Exito!!");
-        }else{
-            JOptionPane.showMessageDialog(null, "Nº Documento ya existe o no fue ingresado");
+        }catch (ComprobarDocumentoException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }catch(CustomException e){
+            JOptionPane.showMessageDialog(null, "Error al modificar el empleado");
         }
     }//GEN-LAST:event_buttonModificarActionPerformed
 

@@ -5,6 +5,8 @@
  */
 package interfaz.grafica;
 
+import Exception.ComprobarDocumentoException;
+import Exception.CustomException;
 import javax.swing.JOptionPane;
 import laboratorio.Afiliado;
 import laboratorio.Empresa;
@@ -231,17 +233,20 @@ public class ModificarAfiliado extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificarActionPerformed
-        int numAf = Integer.parseInt(varNumAfil.getText());
-        int edad = Integer.parseInt(varEdad.getText());
-        Afiliado afil = new Afiliado(varNombre.getText(), varApellido.getText(), edad, varSexo.getText(), varDni.getText(), varDomicilio.getText(), numAf);
-        Afiliado afil2 = emp.buscarAf(numAf1);
-        afil.getFlia().addAll(afil2.getFlia());
-        emp.eliminarAf(numAf1);
-        if(emp.validarDni(varDni.getText())){
+        try{
+            int numAf = Integer.parseInt(varNumAfil.getText());
+            int edad = Integer.parseInt(varEdad.getText());
+            Afiliado afil = new Afiliado(varNombre.getText(), varApellido.getText(), edad, varSexo.getText(), varDni.getText(), varDomicilio.getText(), numAf);
+            Afiliado afil2 = emp.buscarAf(numAf1);
+            afil.getFlia().addAll(afil2.getFlia());
+            emp.eliminarAf(numAf1);
+            emp.validarDni(varDni.getText());
             emp.addAfiliado(afil);
             JOptionPane.showMessageDialog(null, "Afiliado modificado con Exito!!");
-        }else{
-            JOptionPane.showMessageDialog(null, "Nº Documento ya existe o no fue ingresado");
+        }catch(ComprobarDocumentoException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }catch(CustomException e){
+            JOptionPane.showMessageDialog(null, "Error al modificar el afiliado");
         }
     }//GEN-LAST:event_buttonModificarActionPerformed
 

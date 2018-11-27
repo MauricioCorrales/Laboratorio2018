@@ -5,6 +5,7 @@
  */
 package interfaz.grafica;
 
+import Exception.CustomException;
 import javax.swing.JOptionPane;
 import laboratorio.Empresa;
 import laboratorio.Movil;
@@ -158,10 +159,14 @@ public class ModificarMovil extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_varAñoActionPerformed
 
     private void buttonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificarActionPerformed
-        emp.eliminarMovil(patente1);
-        Movil mov = new Movil(varMarca.getText(), varModelo.getText(), varPatente.getText(), varAño.getText());
-        emp.addMovil(mov);
-        JOptionPane.showMessageDialog(null, "Movil modificado con Exito!!");
+        try{
+            emp.eliminarMovil(patente1);
+            Movil mov = new Movil(varMarca.getText(), varModelo.getText(), varPatente.getText(), varAño.getText());
+            emp.addMovil(mov);
+            JOptionPane.showMessageDialog(null, "Movil modificado con Exito!!");
+        }catch(CustomException e){
+            JOptionPane.showMessageDialog(null,"Error al modificar el movil");
+        }
     }//GEN-LAST:event_buttonModificarActionPerformed
 
 

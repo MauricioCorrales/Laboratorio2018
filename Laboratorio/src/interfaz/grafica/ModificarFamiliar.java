@@ -5,6 +5,8 @@
  */
 package interfaz.grafica;
 
+import Exception.ComprobarDocumentoException;
+import Exception.CustomException;
 import javax.swing.JOptionPane;
 import laboratorio.Afiliado;
 import laboratorio.Empresa;
@@ -226,14 +228,17 @@ public class ModificarFamiliar extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificarActionPerformed
-        emp.eliminarFlia(numAf1, dni1);
-        int edad = Integer.parseInt(varEdad.getText());
-        if(emp.validarDni(varDni.getText())){
+        try{
+            emp.eliminarFlia(numAf1, dni1);
+            int edad = Integer.parseInt(varEdad.getText());
+            emp.validarDni(varDni.getText());
             Familiar flia = new Familiar(varNombre.getText(), varApellido.getText(), edad, varSexo.getText(), varDni.getText(), varDomicilio.getText(), varTipoFamiliar.getText());
             emp.addFamilia(numAf1, flia);
             JOptionPane.showMessageDialog(null, "Familiar modificado con Exito!!");
-        }else{
-            JOptionPane.showMessageDialog(null, "Nº Documento ya existe o no fue ingresado");
+        }catch (ComprobarDocumentoException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }catch(CustomException e){
+            JOptionPane.showMessageDialog(null, "Error al modificar el familiar");
         }
     }//GEN-LAST:event_buttonModificarActionPerformed
 

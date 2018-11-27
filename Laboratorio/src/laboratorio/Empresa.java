@@ -4,8 +4,11 @@ import Exception.CampoVaioMovilExcepcion;
 import Exception.ComprobarAfiliadoException;
 import Exception.ComprobarDocumentoException;
 import Exception.ComprobarMovilExcepciom;
+import Exception.ComprobarPagoCuotaException;
 import Exception.CustomException;
+import static java.lang.System.exit;
 import java.util.*;
+import javax.swing.JOptionPane;
 
 public class Empresa {
 
@@ -19,25 +22,22 @@ public class Empresa {
         this.getAfiliado().add(af);
     }
 
-    public boolean addPago(Pago pago, int numAf) {
+    public void addPago(Pago pago, int numAf) throws ComprobarPagoCuotaException {
         for (int i = 0; i < afiliado.size(); i++) {
             if (afiliado.get(i).getNumAfiliado() == numAf) {
-                try {
+                try{
                     if (pago.getCuota() > afiliado.get(i).getPago().getCuota()) {
                         afiliado.get(i).setPago(pago);
-                        return true;
                     } else {
-                        if (pago.getCuota() < afiliado.get(i).getPago().getCuota()) {
-                            return true;
+                        if (pago.getCuota() == afiliado.get(i).getPago().getCuota()) {
+                            throw new ComprobarPagoCuotaException ("ERROR: cuota ya pagada");
                         }
                     }
-                } catch (java.lang.NullPointerException e) {
+                }catch(NullPointerException e){
                     afiliado.get(i).setPago(pago);
-                    return true;
                 }
             }
         }
-        return false;
     }
 
     public void addEmpleado(Empleado empleado) {
@@ -58,12 +58,17 @@ public class Empresa {
         this.getMovil().add(mov);
     }
 
-    public Afiliado buscarAf(int numAf) {
+    public Afiliado buscarAf(int numAf) throws ComprobarAfiliadoException  {
         Afiliado afi = null;
         for (int i = 0; i < getAfiliado().size(); i++) {
             if (getAfiliado().get(i).getNumAfiliado() == numAf) {
                 return afi = getAfiliado().get(i);
+            }}
+        for (int i = 0; i < getAfiliado().size(); i++) {
+            if(getAfiliado().get(i).getNumAfiliado() != numAf ){
+                 throw new ComprobarAfiliadoException(" ERROR: No existe afiliado con el número ingresado");
             }
+            
         }
         return afi;
     }
@@ -109,60 +114,44 @@ public class Empresa {
         return null;
     }
 
-    public boolean eliminarSoli(int numSoli) {
-        for (int i = 0; i < afiliado.size(); i++) {
-            for (int x = 0; x < afiliado.get(i).getRegsol().size(); i++) {
-                if (afiliado.get(i).getRegsol().get(x).getNumSoli() == numSoli) {
-                    afiliado.get(i).getRegsol().remove(x);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean eliminarAf(int numAf) {
+    public void eliminarAf(int numAf) throws CustomException {
         for (int i = 0; i < getAfiliado().size(); i++) {
             if (getAfiliado().get(i).getNumAfiliado() == numAf) {
                 this.getAfiliado().remove(i);
-                return true;
             }
         }
-        return false;
+        throw new CustomException("Error al eliminar el Afiliado");
     }
 
-    public boolean eliminarEmp(String dni) {
+    public void eliminarEmp(String dni) throws CustomException {
         for (int i = 0; i < getEmpleado().size(); i++) {
             if (dni.equals(getEmpleado().get(i).getDni())) {
                 this.getEmpleado().remove(i);
-                return true;
             }
         }
-        return false;
+        throw new CustomException("Error al eliminar el Empleado");
     }
 
-    public boolean eliminarFlia(int numAf, String dniFlia) {
+    public void eliminarFlia(int numAf, String dniFlia) throws CustomException {
         for (int i = 0; i < getAfiliado().size(); i++) {
             if (numAf == getAfiliado().get(i).getNumAfiliado()) {
                 for (int j = 0; j < getAfiliado().get(i).getFlia().size(); j++) {
                     if (dniFlia.equals(getAfiliado().get(i).getFlia().get(j).getDni())) {
                         this.getAfiliado().get(i).getFlia().remove(j);
-                        return true;
                     }
                 }
             }
         }
-        return false;
+        throw new CustomException("Error al eliminar el Familiar");
     }
 
-    public boolean eliminarMovil(String patente) {
+    public void eliminarMovil(String patente) throws CustomException {
         for (int i = 0; i < getMovil().size(); i++) {
             if (patente.equals(getMovil().get(i).getPatente())) {
                 this.getMovil().remove(i);
-                return true;
             }
         }
-        return false;
+        throw new CustomException("Error al eliminar el movil");
     }
 
     public float calcularpago(int numAf) {
@@ -176,83 +165,49 @@ public class Empresa {
         return pago;
     }
 
-    public boolean validarSoli(int mes, int numAf) throws CustomException {
+    public void validarSoli(int mes, int numAf) throws CustomException {
         for (int i = 0; i < afiliado.size(); i++) {
             if (afiliado.get(i).getNumAfiliado() == numAf) {
                 if (afiliado.get(i).getPago().getCuota() == 0) {
-                    throw new CustomException("Afiliado en mora");
+                    throw new CustomException("Afiliado seleccionado en mora");
                 } else {
                     int resultado = mes - afiliado.get(i).getPago().getCuota();
-                    if (resultado < 2) {
-                        return true;
+                    if (resultado >= 2) {
+                        throw new CustomException("Afiliado seleccionado en mora");
                     }
                 }
             }
         }
-        return false;
     }
 
-    public boolean validarDni(String dni) throws ComprobarDocumentoException {
+    public void validarDni(String dni) throws ComprobarDocumentoException {
         for (int i = 0; i < afiliado.size(); i++) {
             if (afiliado.get(i).getDni().equals(dni)) {
 
-                throw new ComprobarDocumentoException(" Ya existe un afiliado con el Documento que esta intentando ingresar");
-                // return false;
+                throw new ComprobarDocumentoException(" Ya existe un afiliado con el Documento que esta intentando ingresar");   // return false;
             }
             for (int j = 0; j < afiliado.get(i).getFlia().size(); j++) {
                 if (afiliado.get(i).getFlia().get(j).getDni().equals(dni)) {
-                    throw new ComprobarDocumentoException(" Ya existe un Familiar de un Afiliado con el Documento que esta intentando ingresar");
-                    //return false;
+                    throw new ComprobarDocumentoException(" Ya existe un Familiar de un Afiliado con el Documento que esta intentando ingresar");//return false;
                 }
             }
         }
         for (int x = 0; x < empleado.size(); x++) {
             if (empleado.get(x).getDni().equals(dni)) {
                 throw new ComprobarDocumentoException(" Ya existe un Empleado con el Documento que esta intentando ingresar");
-                // return false;
-            }
-        }
-        return true;
-    }
-
-    public void comprobarDocumento(String dni) throws ComprobarDocumentoException {
-        for (int i = 0; i < afiliado.size(); i++) {
-            if (afiliado.get(i).getDni().equalsIgnoreCase(dni)) {
-                throw new ComprobarDocumentoException(" Ya existe un afiliado con el Documento que esta intentando ingresar");
-            } else {
-                for (int j = 0; j < getEmpleado().size(); j++) {
-                    if (dni.equals(getEmpleado().get(j).getDni())) {
-                        throw new ComprobarDocumentoException(" Ya existe un Empleado con el Documento que esta intentando ingresar");
-                    }
-                }
             }
         }
     }
-
-    public void comprobarAfiliado(int numAf) throws ComprobarAfiliadoException {
-
-        for (int i = 0; i < getAfiliado().size(); i++) {
-            if (afiliado.get(i).getNumAfiliado() != numAf) {
-
-                throw new ComprobarAfiliadoException("ERROR: No existe afiliado con el numero ingresado");
-
-            }
-        }
-    }
-
-    public boolean comprobarMovil(String patente) throws ComprobarMovilExcepciom {
+    
+    public void comprobarMovil(String patente) throws ComprobarMovilExcepciom {
         for (int i = 0; i < movil.size(); i++) {
-
             if (movil.get(i).getPatente().equalsIgnoreCase(patente)) {
                 throw new ComprobarMovilExcepciom(" Ya existe un Movil con la Patente que esta intentando ingresar");
             }
         }
-
-        return true;
     }
 
     public void comprobarCamposMovil(String marca, String modelo, String año) throws CampoVaioMovilExcepcion {
-
         if (marca.equals("") || modelo.equals("") || año.equals("")) {
             throw new CampoVaioMovilExcepcion("ERROR: Por favor complete todos los campos");
         }
